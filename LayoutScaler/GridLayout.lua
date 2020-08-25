@@ -68,7 +68,7 @@ end
 -- Library --
 
 
-function Grid.create(Layout)
+function Grid.new(Layout)
 	local self = setmetatable({}, Grid)
 
 	self.ScrollingFrame = Layout.Parent

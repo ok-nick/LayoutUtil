@@ -92,7 +92,7 @@ end
 -- Library --
 
 
-function List.create(Layout)
+function List.new(Layout)
 	local self = setmetatable({}, List)
 
 	self.Axis = GetAxis(Layout.FillDirection)

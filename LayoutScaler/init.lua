@@ -18,7 +18,7 @@ LayoutScaler
 	:Destroy(Key <UILayout | ScrollingFrame>)
 	  - Destroys any remains of the class connected to the specified key.
 
-	create(Layout <UILayout>)
+	new(Layout <UILayout>)
 	  - Immediatley sets up the UILayout's auto-scaling features.
 
 		:ResizeCanvas()
@@ -73,9 +73,9 @@ function LayoutScaler:Destroy(Key)
 end
 
 
-function LayoutScaler.create(...)
+function LayoutScaler.new(...)
 	local Layout = ...
-	local self = Layout.ClassName == 'UIGridLayout' and GridLayout.create(...) or ListLayout.create(...)
+	local self = Layout.ClassName == 'UIGridLayout' and GridLayout.new(...) or ListLayout.new(...)
 
 	table.insert(LayoutScaler.Classes, self)
 
