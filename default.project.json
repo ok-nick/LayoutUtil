@@ -1,5 +1,5 @@
 {
-  "name": "LayoutScaler",
+  "name": "LayoutUtil",
   "tree": {
     "$className": "DataModel",
 
@@ -10,8 +10,8 @@
     "ServerScriptService": {
       "$className": "ServerScriptService",
 
-      "LayoutScaler": {
-        "$path": "src/LayoutScaler"
+      "LayoutUtil": {
+        "$path": "src/LayoutUtil"
       }
     },
 

@@ -3,7 +3,7 @@
 	Discord - Nickuhhh#0331
 	Roblox - iiNemo
 
-LayoutScaler
+LayoutUtil
 
 	A library to easily scale the content of a UIGridLayout or UIListLayout. Automatically resizes the children of the ScrollingFrame and sets the CanvasSize.
 
@@ -45,14 +45,14 @@ LayoutScaler
 local GridLayout = require(script.GridLayout)
 local ListLayout = require(script.ListLayout)
 
-local LayoutScaler = {}
-LayoutScaler.Classes = {}
+local LayoutUtil = {}
+LayoutUtil.Classes = {}
 
 
 -- Library --
 
 
-function LayoutScaler:GetLayout(Key)
+function LayoutUtil:GetLayout(Key)
 	for i = 1, #self.Classes do
 		local Class = self.Classes[i]
 
@@ -63,7 +63,7 @@ function LayoutScaler:GetLayout(Key)
 end
 
 
-function LayoutScaler:Destroy(Key)
+function LayoutUtil:Destroy(Key)
 	local Layout, Index = self:GetLayout(Key)
 
 	if Layout then
@@ -73,11 +73,11 @@ function LayoutScaler:Destroy(Key)
 end
 
 
-function LayoutScaler.new(...)
+function LayoutUtil.new(...)
 	local Layout = ...
 	local self = Layout.ClassName == 'UIGridLayout' and GridLayout.new(...) or ListLayout.new(...)
 
-	table.insert(LayoutScaler.Classes, self)
+	table.insert(LayoutUtil.Classes, self)
 
 	return self
 end
@@ -86,4 +86,4 @@ end
 -- Setup --
 
 
-return LayoutScaler
+return LayoutUtil
