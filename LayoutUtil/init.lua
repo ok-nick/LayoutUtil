@@ -32,7 +32,7 @@ LayoutUtil
 		UILAYOUT.Parent.CanvasSize = UDim2.new(0, 0, 0, 0)
 
 		local LayoutUtil = require(MODULE_LOCATION)
-		LayoutUtil.ConvertToScale(UILAYOUT)
+		LayoutUtil:ConvertToScale(UILAYOUT)
 
 	-- IMPORTANT -- IMPORTANT -- IMPORTANT -- IMPORTANT --
 
@@ -103,7 +103,7 @@ end
 -- Public --
 
 
-function LayoutUtil.ConvertToScale(Layout)
+function LayoutUtil:ConvertToScale(Layout)
 	local IsGrid, IsList = Validate(Layout)
 	local P = Layout.Parent
 

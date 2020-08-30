@@ -1,7 +1,7 @@
 ## Global Functions
-### LayoutUtil.ConvertToScale
+### LayoutUtil:ConvertToScale
 ```lua
-LayoutUtil.ConvertToScale(Layout: UILayout) -> void
+LayoutUtil:ConvertToScale(Layout: UILayout) -> void
 ```
 If you've already created and setup a UILayout you could call this function within the studio command bar to covert it and it's children to scale.
 ### LayoutUtil.new
