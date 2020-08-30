@@ -1,6 +1,7 @@
 -- Variables --
 
 
+local ToScale = require(script.Parent.ToScale)
 local Maid = require(script.Parent.Maid)
 
 local List = {}
@@ -10,20 +11,29 @@ List.__index = List
 -- Private --
 
 
-local function GetAxis(FillDirection)
-	return FillDirection == Enum.FillDirection.Horizontal and 'X' or 'Y'
-end
-
-
 local function AddObject(Table, Object)
 	if Object:IsA('GuiObject') then
 		local Size = Object.Size
-		table.insert(Table, {Object = Object, DefaultSize = Vector2.new(Size.X.Scale, Size.Y.Scale)})
+
+		table.insert(Table, {
+			Object = Object,
+			DefaultSize = Vector2.new(
+				ToScale(Size, Object.Parent, 'X'),
+				ToScale(Size, Object.Parent, 'Y')
+			)
+		})
 	end
 end
 
 
 -- Public --
+
+
+function List:GetAxis(FillDirection)
+	assert(typeof(FillDirection) == 'EnumItem', 'Argument #1 is not a valid FillDirection enum')
+
+	return FillDirection == Enum.FillDirection.Horizontal and 'X' or 'Y'
+end
 
 
 function List:ResizeCanvas()
@@ -61,7 +71,7 @@ function List:Bind()
 
 	if C.OnAxisChange ~= false then
 		self._maid.AxisChanged = self.Layout:GetPropertyChangedSignal('FillDirection'):Connect(function()
-			self.Axis = GetAxis(self.Layout.FillDirection)
+			self.Axis = self:GetAxis(self.Layout.FillDirection)
 			self:ResizeContent()
 		end)
 	end
@@ -92,7 +102,17 @@ end
 
 
 function List:SetDefault(Padding)
-	self.Padding = (Padding.Offset / self.ScrollingFrame.AbsoluteSize[self.Axis]) + Padding.Scale
+	assert(typeof(Padding) == 'UDim', 'Argument #1 is not a valid UDim')
+
+	local Size = {
+		X = {
+			Offset = Padding.Offset,
+			Scale = Padding.Scale
+		}
+	}
+	Size.Y = Size.X
+
+	self.Padding = ToScale(Size, self.ScrollingFrame, self.Axis)
 end
 
 
@@ -105,7 +125,7 @@ function List.new(Layout, Config)
 	self.Config = Config or {}
 	self._maid = Maid.new()
 
-	self.Axis = GetAxis(Layout.FillDirection)
+	self.Axis = self:GetAxis(Layout.FillDirection)
 	self.ScrollingFrame = Layout.Parent
 	self.Layout = Layout
 	self.Children = {}

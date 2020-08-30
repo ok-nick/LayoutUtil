@@ -1,6 +1,7 @@
 -- Variables --
 
 
+local ToScale = require(script.Parent.ToScale)
 local Maid = require(script.Parent.Maid)
 
 local Grid = {}
@@ -61,12 +62,11 @@ end
 
 
 function Grid:SetDefault(Padding, Size)
-	local function ToScale(Absolute, Axis)
-		return (Absolute[Axis].Offset / self.ScrollingFrame.AbsoluteSize[Axis]) + Absolute[Axis].Scale
-	end
+	assert(typeof(Padding) == 'UDim2', 'Argument #1 is not a valid UDim2')
+	assert(typeof(Size) == 'UDim2', 'Argument #2 is not a valid UDim2')
 
-	self.Padding = Vector2.new(ToScale(Padding, 'X'), ToScale(Padding, 'Y'))
-	self.Size = Vector2.new(ToScale(Size, 'X'), ToScale(Size, 'Y'))
+	self.Padding = Vector2.new(ToScale(Padding, self.ScrollingFrame, 'X'), ToScale(Padding, self.ScrollingFrame, 'Y'))
+	self.Size = Vector2.new(ToScale(Size, self.ScrollingFrame, 'X'), ToScale(Size, self.ScrollingFrame, 'Y'))
 end
 
 
@@ -83,13 +83,14 @@ function Grid.new(Layout, Config)
 	self.ScrollingFrame = SF
 	self.Layout = Layout
 
-	local function CalcRatio(Axis)
-		return (math.abs(((SF.Parent.AbsoluteSize[Axis] * SF.CanvasSize[Axis].Scale) + SF.CanvasSize[Axis].Offset) - SF.AbsoluteSize[Axis]) / SF.AbsoluteSize[Axis]) + SF.Size[Axis].Scale
-	end
+	-- local function CalcRatio(Axis) -- Purpose was to remove the need to set the default CanvasSize to all zeros, but there were too many miscalculations, may resolve in the future.
+	-- 	if SF.Parent.AbsoluteSize[Axis] * SF.CanvasSize[Axis].Scale >= SF.AbsoluteSize[Axis] then
+	-- 		return (math.abs(((SF.Parent.AbsoluteSize[Axis] * SF.CanvasSize[Axis].Scale) + SF.CanvasSize[Axis].Offset) - SF.AbsoluteSize[Axis]) / SF.AbsoluteSize[Axis]) + SF.Size[Axis].Scale
+	-- 	end
 
-	local ResizeX, ResizeY = SF.CanvasSize.X ~= UDim.new(), SF.CanvasSize.Y ~= UDim.new()
-	Layout.CellSize = UDim2.new(Layout.CellSize.X.Scale * (ResizeX and CalcRatio('X') or 1), 0, Layout.CellSize.Y.Scale * (ResizeY and CalcRatio('Y') or 1), 0)
-	SF.CanvasSize = UDim2.new(0,0,0,0) -- don't need
+	-- 	return 1
+	-- end
+	-- Layout.CellSize = UDim2.fromScale(Layout.CellSize.X.Scale * CalcRatio('X'), Layout.CellSize.Y.Scale * CalcRatio('Y'))
 
 	self:SetDefault(self.Config.CellPadding or Layout.CellPadding, self.Config.CellSize or Layout.CellSize)
 	self:ResizeContent()
