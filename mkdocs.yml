@@ -1,0 +1,30 @@
+site_name: LayoutUtil
+site_description: Documentation for LayoutUtil
+site_author: Nickuhhh
+site_url: https://nickuhhh.github.io/LayoutUtil/
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Easy Mistakes: mistakes.md
+  - Examples: examples.md
+  - API: api.md
+
+theme:
+  name: material
+  palette:
+    primary: "Light blue"
+    accent: "Light blue"
+  hljs_languages:
+    - lua
+
+extra:
+  social:
+      link: https://github.com/Nickuhhh/LayoutUtil
+
+markdown_extensions:
+  - codehilite:
+      linenums: true
+  - admonition
+  - toc:
+      permalink: true
