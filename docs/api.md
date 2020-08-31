@@ -3,7 +3,7 @@
 ```lua
 LayoutUtil:ConvertToScale(Layout: UILayout) -> void
 ```
-If you've already created and setup a UILayout you could call this function within the studio command bar to covert it and it's children to scale.
+If you've already created and setup a UILayout you could call this function within the studio command bar to convert it and it's children to scale.
 ### LayoutUtil.new
 ```lua
 LayoutUtil.new(Layout: UILayout, Config: table) -> class
