@@ -9,7 +9,8 @@
 			Use of maids
 			Many optimizations
 			ConvertToScale public function
-			GetAxis is now a public function
+			GetAxis/AddObject/RemoveObject is now a public function of a UIListLayout class
+			Fixed bug where it wouldn't recognize a new item in a new row
 
 		8/12/20
 			Released
