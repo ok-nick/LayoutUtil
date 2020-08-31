@@ -44,9 +44,18 @@ end
 
 function List:ResizeCanvas()
 	if self.Config.ResizeCanvas == false then return end
-
 	local ContentSize = self.Layout.AbsoluteContentSize
-	self.ScrollingFrame.CanvasSize = UDim2.fromOffset(ContentSize.X, ContentSize.Y)
+	local AbsSize = self.ScrollingFrame.AbsoluteSize
+	local X, Y = 0, 0
+
+	if ContentSize.X >= AbsSize.X then
+		X = ContentSize.X
+	end
+	if ContentSize.Y >= AbsSize.Y then
+		Y = ContentSize.Y
+	end
+
+	self.ScrollingFrame.CanvasSize = UDim2.fromOffset(X, Y)
 end
 
 
