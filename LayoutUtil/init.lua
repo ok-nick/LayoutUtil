@@ -46,8 +46,7 @@ LayoutUtil
 			ResizeCanvas = false, -- Removes canvas resizing.
 			ResizeContent = false, -- Removes content resizing.
 			OnResize = false, -- Updates when it's resized.
-			OnAdd = false, -- Updates when a child is added.
-			OnRemove = false, -- Updates when a child is removed.
+			OnWindowResize = false, -- Updates when the content size changes.
 
 			-- UIGridLayout Exclusives
 			CellPadding = UDim2.new(), -- Default CellPadding.
@@ -56,6 +55,8 @@ LayoutUtil
 			-- UIListLayout Exclusives
 			Padding = UDim.new(), - Default Padding.
 			OnAxisChange = false, -- Updates when FillDirection changes.
+			OnAdd = false, -- Adds object to the resize cache.
+			OnRemove = false, -- Removes object from the resize cache.
 		}
 
 		:GetAxis(FillDirection: EnumItem) -> void -- Exclusive to UIListLayout
@@ -73,9 +74,20 @@ LayoutUtil
 		:Unbind() -> void
 		  - Destroys all connections that automatically handle the scaling.
 
-		:SetDefault(Padding: UDim) -> void -- UIListLayout
-		:SetDefault(Padding: UDim2, Size: UDim2) -> void -- UIGridLayout
-		  - Changes the default CellPadding and CellSize
+		-- UIGridLayout Exclusives
+		:SetDefault(Padding: UDim2, Size: UDim2) -> void
+		  - Changes the default CellPadding and CellSize.
+
+		-- UIListLayout Exclusives
+		:SetDefault(Padding: UDim) -> void
+		  - Changes the default CellPadding and CellSize.
+
+		:AddObject(Object: GuiObject) -> void
+		  - Adds an object to the resize cache.
+
+		:RemoveObject(Object: GuiObject) -> void
+		  - Removes an object from the resize cache.
+
 ]]--
 
 

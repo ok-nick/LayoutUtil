@@ -42,14 +42,8 @@ function Grid:Bind()
 		end)
 	end
 
-	if C.OnRemove ~= false then
-		self._maid.ChildRemoved = self.ScrollingFrame.ChildRemoved:Connect(function()
-			self:ResizeCanvas()
-		end)
-	end
-
-	if C.OnAdd ~= false then
-		self._maid.ChildAdded = self.ScrollingFrame.ChildAdded:Connect(function()
+	if C.OnWindowResize ~= false then
+		self._maid.OnWindowResize = self.Layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 			self:ResizeCanvas()
 		end)
 	end

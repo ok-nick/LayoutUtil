@@ -8,14 +8,14 @@ local List = {}
 List.__index = List
 
 
--- Private --
+-- Public --
 
 
-local function AddObject(Table, Object)
+function List:AddObject(Object)
 	if Object:IsA('GuiObject') then
 		local Size = Object.Size
 
-		table.insert(Table, {
+		table.insert(self.Children, {
 			Object = Object,
 			DefaultSize = Vector2.new(
 				ToScale(Size, Object.Parent, 'X'),
@@ -26,7 +26,13 @@ local function AddObject(Table, Object)
 end
 
 
--- Public --
+function List:RemoveObject(Object)
+	local Index = table.find(self.Children, Object)
+
+	if Index then
+		table.remove(self.Children, Index)
+	end
+end
 
 
 function List:GetAxis(FillDirection)
@@ -76,21 +82,21 @@ function List:Bind()
 		end)
 	end
 
+	if C.OnWindowResize ~= false then
+		self._maid.OnWindowResize = self.Layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+			self:ResizeCanvas()
+		end)
+	end
+
 	if C.OnRemove ~= false then
 		self._maid.ChildRemoved = self.ScrollingFrame.ChildRemoved:Connect(function(Object)
-			local Index = table.find(self.Children, Object)
-			if Index then
-				table.remove(self.Children, Index)
-			end
-
-			self:ResizeCanvas()
+			self:RemoveObject(Object)
 		end)
 	end
 
 	if C.OnAdd ~= false then
 		self._maid.ChildAdded = self.ScrollingFrame.ChildAdded:Connect(function(Object)
-			AddObject(self.Children, Object)
-			self:ResizeCanvas()
+			self:AddObject(Object)
 		end)
 	end
 end
@@ -131,7 +137,7 @@ function List.new(Layout, Config)
 	self.Children = {}
 
 	for _, Object in next, self.ScrollingFrame:GetChildren() do
-		AddObject(self.Children, Object)
+		self:AddObject(Object)
 	end
 
 	self:SetDefault(self.Config.Padding or Layout.Padding)

@@ -19,8 +19,7 @@ Config = {
     ResizeCanvas = false, -- Removes canvas resizing.
     ResizeContent = false, -- Removes content resizing.
     OnResize = false, -- Updates when it's resized.
-    OnAdd = false, -- Updates when a child is added.
-    OnRemove = false, -- Updates when a child is removed.
+    OnWindowResize = false, -- Updates when the content size changes.
 
     -- UIGridLayout Exclusives
     CellPadding = UDim2.new(), -- Default CellPadding.
@@ -29,6 +28,8 @@ Config = {
     -- UIListLayout Exclusives
     Padding = UDim.new(), - Default Padding.
     OnAxisChange = false, -- Updates when FillDirection changes.
+    OnAdd = false, -- Adds object to the resize cache.
+    OnRemove = false, -- Removes object from the resize cache.
 }
 ```
 ## UILayout API
@@ -69,3 +70,13 @@ Set's the default Padding to maintain aspect ratio around.
 Class:GetAxis(FillDirection: EnumItem) -> void
 ```
 Returns the axis relative to the FillDirection EnumItem.
+### Class:AddObject
+```lua
+Class:AddObject(Object: GuiObject) -> void
+```
+Adds an object to the resize cache.
+### Class:RemoveObject
+```lua
+Class:RemoveObject(Object: GuiObject) -> void
+```
+Removes an object from the resize cache.
