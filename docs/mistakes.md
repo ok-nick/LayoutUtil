@@ -4,4 +4,4 @@ Unfortunatley with all the good, there will be some inconveniencies. If you set 
 ### **NUMBER 2**
 You should be still using a UIAspectRatioConstraint within the main frame relative to the ScrollingFrame so that the ScrollingFrame will maintain it's proper aspect ratio. Failure to do this will result in stretching and other inconsistencies.
 ### **NUMBER 3**
-The CanvasSize of your ScrollingFrame must be set to (0, 0, 0, 0) otherwise the GuiObjects inside will stretch. I'm planning on creating a feature that will remove the need for this.
+The CanvasSize of your ScrollingFrame must be set to (0, 0, 0, 0) otherwise the GuiObjects inside will stretch. I'm planning on creating a feature that will remove the need for this
