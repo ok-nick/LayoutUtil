@@ -3,6 +3,9 @@
 	Roblox - iiNemo
 
 	Changelog:
+		9/20/20
+			Fixed bug where if you changed the size of an object in a UIListLayout it wouldn't scale that object based on the new size
+
 		8/29/20
 			Documentation updates
 			Configuration table
@@ -107,7 +110,7 @@ local LayoutUtil = {}
 
 local function Validate(Layout)
 	local IsGrid, IsList = Layout.ClassName == 'UIGridLayout', Layout.ClassName == 'UIListLayout'
-	assert(IsGrid or IsList, 'Argument #1 is not a valid UILayout')
+	assert(IsGrid or IsList, 'bad argument #1, not a valid UILayout')
 
 	return IsGrid, IsList
 end
