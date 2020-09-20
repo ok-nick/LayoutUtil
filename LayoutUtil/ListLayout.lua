@@ -13,15 +13,26 @@ List.__index = List
 
 function List:AddObject(Object)
 	if Object:IsA('GuiObject') then
-		local Size = Object.Size
-
-		table.insert(self.Children, {
-			Object = Object,
-			DefaultSize = Vector2.new(
+		local function GetDefaultSize(Size)
+			return Vector2.new(
 				ToScale(Size, Object.Parent, 'X'),
 				ToScale(Size, Object.Parent, 'Y')
 			)
-		})
+		end
+
+		local Changed
+		local Info = {
+			Object = Object,
+			ChangedEvent = Changed,
+			DefaultSize = GetDefaultSize(Object.Size),
+		}
+
+		Changed = Object:GetPropertyChangedSignal('Size'):Connect(function()
+			Info.DefaultSize = GetDefaultSize(Object.Size)
+		end)
+
+		self._maid:GiveTask(Changed)
+		table.insert(self.Children, Info)
 	end
 end
 
@@ -30,13 +41,15 @@ function List:RemoveObject(Object)
 	local Index = table.find(self.Children, Object)
 
 	if Index then
+		self.Children[Index].ChangedEvent:Disconnect()
+
 		table.remove(self.Children, Index)
 	end
 end
 
 
 function List:GetAxis(FillDirection)
-	assert(typeof(FillDirection) == 'EnumItem', 'Argument #1 is not a valid FillDirection enum')
+	assert(typeof(FillDirection) == 'EnumItem', 'bad argument #1, not a valid FillDirection enum')
 
 	return FillDirection == Enum.FillDirection.Horizontal and 'X' or 'Y'
 end
@@ -117,7 +130,7 @@ end
 
 
 function List:SetDefault(Padding)
-	assert(typeof(Padding) == 'UDim', 'Argument #1 is not a valid UDim')
+	assert(typeof(Padding) == 'UDim', 'bad argument #1, not a valid UDim')
 
 	local Size = {
 		X = {
