@@ -65,8 +65,8 @@ end
 
 
 function Grid:SetDefault(Padding, Size)
-	assert(typeof(Padding) == 'UDim2', 'Argument #1 is not a valid UDim2')
-	assert(typeof(Size) == 'UDim2', 'Argument #2 is not a valid UDim2')
+	assert(typeof(Padding) == 'UDim2', 'bad argument #1, not a valid UDim2')
+	assert(typeof(Size) == 'UDim2', 'bad argument #2, not a valid UDim2')
 
 	self.Padding = Vector2.new(ToScale(Padding, self.ScrollingFrame, 'X'), ToScale(Padding, self.ScrollingFrame, 'Y'))
 	self.Size = Vector2.new(ToScale(Size, self.ScrollingFrame, 'X'), ToScale(Size, self.ScrollingFrame, 'Y'))
