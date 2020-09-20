@@ -1,0 +1,14 @@
+{
+  "name": "Test",
+  "tree": {
+    "$className": "DataModel",
+
+    "StarterGui": {
+      "$className": "StarterGui",
+
+      "LayoutUtil": {
+        "$path": "LayoutUtil"
+      }
+    }
+  }
+}
