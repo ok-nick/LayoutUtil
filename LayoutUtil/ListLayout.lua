@@ -8,6 +8,15 @@ local List = {}
 List.__index = List
 
 
+-- Internal
+
+
+function List:_resize(Info)
+	local NewSize = Info.DefaultSize * self.ScrollingFrame.AbsoluteSize
+	Info.Object.Size = UDim2.fromOffset(NewSize.X, NewSize.Y)
+end
+
+
 -- Public --
 
 
@@ -30,6 +39,8 @@ function List:AddObject(Object)
 		Changed = Object:GetPropertyChangedSignal('Size'):Connect(function()
 			Info.DefaultSize = GetDefaultSize(Object.Size)
 		end)
+
+		self:_resize(Info)
 
 		self._maid:GiveTask(Changed)
 		table.insert(self.Children, Info)
@@ -77,12 +88,12 @@ function List:ResizeContent()
 
 	for i = 1, #self.Children do
 		local Info = self.Children[i]
-
-		local NewSize = Info.DefaultSize * self.ScrollingFrame.AbsoluteSize
-		Info.Object.Size = UDim2.fromOffset(NewSize.X, NewSize.Y)
+		self:_resize(Info)
 	end
 
-	self.Layout.Padding = UDim.new(0, self.Padding * self.ScrollingFrame.AbsoluteSize[self.Axis])
+	local coords = {}
+	coords[self.Axis] = self.Padding * self.ScrollingFrame.AbsoluteSize[self.Axis]
+	self.Layout.Padding = UDim.new(coords.X or 0, coords.Y or 0)
 
 	self:ResizeCanvas()
 end

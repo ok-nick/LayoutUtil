@@ -1,3 +1,3 @@
 return function(Size, Parent, Axis)
-	return (Size[Axis].Offset / Parent.AbsoluteSize[Axis]) + Size[Axis].Scale
+	return Parent and (Size[Axis].Offset / Parent.AbsoluteSize[Axis]) + Size[Axis].Scale
 end
