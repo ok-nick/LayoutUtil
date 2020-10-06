@@ -13,26 +13,15 @@ List.__index = List
 
 function List:AddObject(Object)
 	if Object:IsA('GuiObject') then
-		local function GetDefaultSize(Size)
-			return Vector2.new(
+		local Size = Object.Size
+
+		table.insert(self.Children, {
+			Object = Object,
+			DefaultSize = Vector2.new(
 				ToScale(Size, Object.Parent, 'X'),
 				ToScale(Size, Object.Parent, 'Y')
 			)
-		end
-
-		local Changed
-		local Info = {
-			Object = Object,
-			ChangedEvent = Changed,
-			DefaultSize = GetDefaultSize(Object.Size),
-		}
-
-		Changed = Object:GetPropertyChangedSignal('Size'):Connect(function()
-			Info.DefaultSize = GetDefaultSize(Object.Size)
-		end)
-
-		self._maid:GiveTask(Changed)
-		table.insert(self.Children, Info)
+		})
 	end
 end
 

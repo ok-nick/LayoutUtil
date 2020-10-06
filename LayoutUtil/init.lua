@@ -3,10 +3,16 @@
 	Roblox - iiNemo
 
 	Changelog:
-		9/20/20
-			Fixed bug where if you changed the size of an object in a UIListLayout it wouldn't scale that object based on the new size
+		10/5/2020
+			Reverted a fix from 9/20/2020 that caused more problems
 
-		8/29/20
+		9/26/2020
+			Fixed bug relating to Scrolling Frame's with UIListLayouts CanvasSize stretching when it reaches past AbsoluteSize
+
+		9/20/2020
+			Fixed bug where if you changed the size of an object in a UIListLayout it wouldn't scale that object based on the new size (reverted)
+
+		8/29/2020
 			Documentation updates
 			Configuration table
 			Use of maids
@@ -15,7 +21,7 @@
 			GetAxis/AddObject/RemoveObject is now a public function of a UIListLayout class
 			Fixed bug where it wouldn't recognize a new item in a new row
 
-		8/12/20
+		8/12/2020
 			Released
 
 LayoutUtil
