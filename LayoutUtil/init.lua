@@ -3,6 +3,9 @@
 	Roblox - iiNemo
 
 	Changelog:
+		10/6/2020
+			Fixed a bug that was caused by a fix to another bug which was a fix to another bug which was a fix to another bug
+
 		10/5/2020
 			Reverted a fix from 9/20/2020 that caused more problems
 

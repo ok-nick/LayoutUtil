@@ -23,14 +23,17 @@ end
 function List:AddObject(Object)
 	if Object:IsA('GuiObject') then
 		local Size = Object.Size
-
-		table.insert(self.Children, {
+		local Info = {
 			Object = Object,
 			DefaultSize = Vector2.new(
 				ToScale(Size, Object.Parent, 'X'),
 				ToScale(Size, Object.Parent, 'Y')
 			)
-		})
+		}
+
+		self:_resize(Info)
+
+		table.insert(self.Children, Info)
 	end
 end
 
