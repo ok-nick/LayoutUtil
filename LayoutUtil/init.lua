@@ -3,6 +3,7 @@
 	Roblox - iiNemo
 
 	Changelog:
+<<<<<<< HEAD
 		10/7/2020 - v1.0.6
 			Fixed bug when the size of a element in a UIListLayout is exactly the size of one of the parent's axis's, it created a scrolling bar
 
@@ -10,6 +11,12 @@
 			Fixed a bug that was caused by a fix to another bug which was a fix to another bug which was a fix to another bug
 
 		10/5/2020 - v1.0.4
+=======
+		10/6/2020
+			Fixed a bug that was caused by a fix to another bug which was a fix to another bug which was a fix to another bug
+
+		10/5/2020
+>>>>>>> 19321ae48225017b219a7e5f3480912d72eddc68
 			Reverted a fix from 9/20/2020 that caused more problems
 
 		9/26/2020 - v1.0.3
