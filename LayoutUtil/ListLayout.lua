@@ -59,10 +59,10 @@ function List:ResizeCanvas()
 	local AbsSize = self.ScrollingFrame.AbsoluteSize
 	local X, Y = 0, 0
 
-	if ContentSize.X >= AbsSize.X then
+	if ContentSize.X > AbsSize.X then
 		X = ContentSize.X
 	end
-	if ContentSize.Y >= AbsSize.Y then
+	if ContentSize.Y > AbsSize.Y then
 		Y = ContentSize.Y
 	end
 
