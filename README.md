@@ -1,4 +1,4 @@
-# LayoutScaler
+# LayoutUtil
 A library to automatically manage UILayout scaling. Simply construct the class with the UILayout as a parameter and it should be ready to go!
 
 ## Example Usage
