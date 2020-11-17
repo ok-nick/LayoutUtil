@@ -1,7 +1,7 @@
 # [LayoutUtil v1.0.0](https://github.com/Nickuhhh/LayoutUtil/releases/latest)
 The largest update yet following a complete rewrite of the [codebase](https://github.com/Nickuhhh/LayoutUtil/tree/master) and [documentation](https://nickuhhh.github.io/LayoutUtil/). Not only that, but there is now complete **typescript** support for use with roblox-ts. Recently, I was looking back at the code lately, wondering what is this for? Why did I add this? I included a ton of redundant features that were totally confusing or completely useless. This is a big reason for a complete remake. Now for the contents of this update, I've fully integrated Luau type checking. Although this feature is still in beta (you might notice a lot of orange highlighted source code), if used properly it should make LayoutUtil a breeze. When linking a new UILayout, to ensure proper type checking, follow the short guide below.
 ```lua
-	local class: LayoutUtil.List = LayoutUtil.new(script.Parent.ScrollingFrame) -- considering theres a UIListLayout inside
+local class: LayoutUtil.List = LayoutUtil.new(script.Parent.ScrollingFrame) -- considering theres a UIListLayout inside
 ```
 It's as simple as adding a colon followed by LayoutUtil.List for a UIListLayout, or LayoutUtil.Grid for a UIGridLayout.
 
