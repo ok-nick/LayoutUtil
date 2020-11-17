@@ -1,2 +1,12 @@
+node_modules
+out
+include
+.vscode
+old
+*.rbxl
+*.rbxl.lock
+TODO.md
+default.project.json
 *.toml
-site/
+*.json
+LayoutUtilPlugin

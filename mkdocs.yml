@@ -8,6 +8,7 @@ repo_url: https://github.com/Nickuhhh/LayoutUtil
 
 nav:
   - Home: index.md
+  - Plugin: plugin.md
   - Installation: installation.md
   - Easy Mistakes: mistakes.md
   - Examples: examples.md
@@ -17,8 +18,8 @@ theme:
   name: material
   palette:
     scheme: slate
-    primary: indigo
-    accent: indigo
+    primary: light blue
+    accent: light blue
   hljs_languages:
     - lua
 

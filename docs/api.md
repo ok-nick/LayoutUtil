@@ -1,82 +1,113 @@
-## Global Functions
-### LayoutUtil:ConvertToScale
-```lua
-LayoutUtil:ConvertToScale(Layout: UILayout) -> void
-```
-If you've already created and setup a UILayout you could call this function within the studio command bar to convert it and it's children to scale.
-### LayoutUtil.new
-```lua
-LayoutUtil.new(Layout: UILayout, Config: table) -> class
-```
-Creates a new class based off the type of UILayout specified. Config parameter is optional to specify what you don't want to run.
+# API
 
-!!! warning
-    **MAKE SURE** to follow the [easy mistakes](mistakes.md) page to ensure that it will be setup correctly!
+## LayoutUtil
+### LayoutUtil.Version **[read-only]**
+```lua
+LayoutUtil.Version: string
+```
+The current version of LayoutUtil.
 
+### LayoutUti.Grid **[read-only]**
 ```lua
-Config = {
-    Bind = false, -- Removes instant binding.
-    ResizeCanvas = false, -- Removes canvas resizing.
-    ResizeContent = false, -- Removes content resizing.
-    OnResize = false, -- Updates when it's resized.
-    OnWindowResize = false, -- Updates when the content size changes.
+LayoutUtil.Grid: Grid
+```
+Returns the Grid class.
 
-    -- UIGridLayout Exclusives
-    CellPadding = UDim2.new(), -- Default CellPadding.
-    CellSize = UDim2.new(), -- Default CellSize.
+!!! note
+	There is also a type exported, LayoutUtil.Grid, which represents the Grid class.
 
-    -- UIListLayout Exclusives
-    Padding = UDim.new(), - Default Padding.
-    OnAxisChange = false, -- Updates when FillDirection changes.
-    OnAdd = false, -- Adds object to the resize cache.
-    OnRemove = false, -- Removes object from the resize cache.
-}
-```
-## UILayout API
-### Class:ResizeCanvas
+### LayoutUti.List **[read-only]**
 ```lua
-Class:ResizeCanvas() -> void
+LayoutUtil.List: List
 ```
-Changes the CanvasSize of the ScrollingFrame to automatically fit the content size.
-### Class:ResizeContent
+Returns the List class.
+
+!!! note
+	There is also a type exported, LayoutUtil.List, which represents the List class.
+
+### LayoutUtil.new()
 ```lua
-Class:ResizeContent() -> void
+LayoutUtil.new(layout: ScrollingFrame | UIGridLayout | UIListLayout, noStartup: boolean?): Grid | List
 ```
-Resizes the CellPadding and CellSize of a UIGridLayout. For a UIListLayout it will resize each child and it's Padding.
-### Class:Bind
+Constructs a new class from a ScrollingFrame, UIGridLayout, or UIListLayout. If you specify a frame be sure to have a UILayout as it's child. The noStartup property represents if you want it to immediatley call :Play().
+
+## UILayout
+This represents the methods and properties both the List class and Grid class inherit.
+
+### UILayout.Ref **[read-only]**
 ```lua
-Class:Bind() -> void
+UILayout.Ref: UIGridLayout | UIListLayout
 ```
-Subscribes a series of events to handle the scaling.
-### Class:Unbind
+Returns the reference to the constructed UIGridLayout or UIListLayout.
+
+### UILayout.Paused **[read-only]**
 ```lua
-Class:Unbind() -> void
+UILayout.Paused: boolean
 ```
-Destroys all connections that automatically handle scaling.
-## UIGridLayout Exclusives
-### Class:SetDefault
+Returns whether or not the layout is paused.
+
+### UILayout.Destroyed **[read-only]**
 ```lua
-Class:SetDefault(CellPadding: UDim, CellSize: UDim) -> void
+UILayout.Destroyed: boolean
 ```
-Set's the default CellPadding and CellSize to maintain aspect ratio around.
-## UIListLayout Exclusives
-### Class:SetDefault
+Returns whether or not the layout has been destroyed.
+
+### UILayout.DoUpdatePadding
 ```lua
-Class:SetDefault(Padding: UDim) -> void
+UILayout.DoUpdatePadding: boolean
 ```
-Set's the default Padding to maintain aspect ratio around.
-### Class:GetAxis
+Whether or not the layout should automatically update the padding.
+
+### UILayout.DoUpdateSize
 ```lua
-Class:GetAxis(FillDirection: EnumItem) -> void
+UILayout.DoUpdateSize: boolean
 ```
-Returns the axis relative to the FillDirection EnumItem.
-### Class:AddObject
+Whether or not the layout should automatically update the size.
+
+### UILayout.DoUpdateCanvas
 ```lua
-Class:AddObject(Object: GuiObject) -> void
+UILayout.DoUpdateCanvas: boolean
 ```
-Adds an object to the resize cache.
-### Class:RemoveObject
+Whether or not the layout should automatically update the canvas.
+
+### UILayout:UpdatePadding()
 ```lua
-Class:RemoveObject(Object: GuiObject) -> void
+UILayout:UpdatePadding()
 ```
-Removes an object from the resize cache.
+Manually updates the padding if it's currently paused.
+
+### UILayout:UpdateSize()
+```lua
+UILayout:UpdateSize()
+```
+Manually updates the size if it's currently paused.
+
+### UILayout:UpdateCanvas()
+```lua
+UILayout:UpdateCanvas()
+```
+Manually updates the canvas if it's currently paused.
+
+### UILayout:Play()
+```lua
+UILayout:Play()
+```
+Plays the UILayout (call :Pause() to stop it).
+
+### UILayout:Pause()
+```lua
+UILayout:Pause()
+```
+Pauses the UILayout (call :Play() to continue playing).
+
+### UILayout:Destroy()
+```lua
+UILayout:Destroy()
+```
+Destroys the class completely.
+
+### UILayout.new()
+```lua
+UILayout.new(layout: UIGridLayout | UIListLayout, noStartup: boolean?): Grid | List
+```
+Layout represents the layout you want it to bind to, while noStartup represents if the class should automatically call :Play() on construction.
