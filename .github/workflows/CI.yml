@@ -41,7 +41,6 @@ jobs:
         uses: Roblox/setup-foreman@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          working-directory: .github/workflows
 
       - name: Build place file
         run: rojo build --output tests/test-place.rbxlx tests/default.project.json
