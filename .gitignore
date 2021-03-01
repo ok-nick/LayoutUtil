@@ -2,7 +2,7 @@ old
 TODO.md
 roblox.toml
 node_modules
-bin
+bin/**
 
 /**/*.rbxmx
 
