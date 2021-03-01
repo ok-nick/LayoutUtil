@@ -1,5 +1,6 @@
-# [LayoutUtil v2.0.0](https://github.com/Nickuhhh/LayoutUtil/releases/latest)
 <img align = 'right' width = '256' src = 'https://github.com/ok-nick/LayoutUtil/blob/master/assets/icon-256.png?raw=true'/>
+
+# [LayoutUtil v2.0.0](https://github.com/Nickuhhh/LayoutUtil/releases/latest)
 
 [![Actions Status](https://github.com/ok-nick/LayoutUtil/workflows/CI/badge.svg)](https://github.com/ok-nick/LayoutUtil/actions?query=workflow%3ACI) [![Latest Release](https://img.shields.io/github/release/ok-nick/LayoutUtil.svg)](https://github.com/Nickuhhh/LayoutUtil/releases/latest)
 
