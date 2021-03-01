@@ -4,7 +4,8 @@
   "description": "",
   "main": "out/init.lua",
   "scripts": {
-    "prepublishOnly": "rbxtsc"
+    "prepublishOnly": "rbxtsc",
+	"eslint": "eslint typings/** --max-warnings 0"
   },
   "keywords": [],
   "author": "ok-nick",
