@@ -1,0 +1,50 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install NPM dependencies
+        uses: bahmutov/npm-install@v1.4.5
+
+      - name: Install Lua dependencies
+        uses: Roblox/setup-foreman@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Lint Typescript using ESLint
+        run: npm run eslint
+
+      - name: Lint Lua using Selene
+        run: |
+          selene generate-roblox-std
+          selene src tests plugin
+
+  unit-tests:
+    runs-on: windows-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install Roblox Studio
+        uses: OrbitalOwen/roblox-win-installer-action@1.1
+        with:
+            cookie: ${{ secrets.ROBLOSECURITY || '_|WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.|_BEEAA3BC6F584E2A18B6D063DC0FCBDCA2B6F39BCF20646BC8E7629B59FE02167C70F21B96F0DCDB0F5EDC3AFB04A72D66E059D97F54EDE6F12D9041660F4E07DA1A0E1D2729FBC42835A6FF0B6DD70615C6E2DF11AE4821DDA33ECF61B3366DF5092943A2B5E0AFBDB8DC7FCA16342DF5A75EC7423A1716BBDA07A641BD671B72CC4EC5F3D8CA07E377B48AAF268CAC56A24CD08234CCE1071C91748485880F80151766A5C8D23B5F8B45B2E1AB2507280915C7A4517B22D342C36D3F3E0BF2600C8876DC583072A1C0087125995FE6F0B406055B5D55E52086E71B8323AF61CF791884741585BEFB37283669546B147B302CEF2F8D04523E8392529ADCE55060CD47C8ED58116A08D91186969BB972B9FD9F4D33E445EF2FB1F3BF7C6F5C669F7E5FADAA2EEA82A241D59D7A6026F916D874B6' }}
+            token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Tools
+        uses: Roblox/setup-foreman@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: .github/workflows
+
+      - name: Build place file
+        run: rojo build --output bin/test-place.rbxlx tests/default.project.json
+
+      - name: Run unit tests
+        run: run-in-roblox --place bin/test-place.rbxlx --script tests/test.server.lua

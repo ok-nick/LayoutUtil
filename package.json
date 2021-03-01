@@ -1,0 +1,28 @@
+{
+  "name": "@rbxts/layoututil",
+  "version": "2.0.0",
+  "description": "",
+  "main": "out/init.lua",
+  "scripts": {
+    "prepublishOnly": "rbxtsc"
+  },
+  "keywords": [],
+  "author": "ok-nick",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "types": "out/index.d.ts",
+  "devDependencies": {
+    "@rbxts/compiler-types": "^1.0.0-beta.16.1",
+    "@rbxts/types": "^1.0.456",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-roblox-ts": "^0.0.24",
+    "prettier": "^2.2.1",
+    "typescript": "^4.2.2"
+  }
+}
