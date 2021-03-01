@@ -58,7 +58,7 @@ return function(layout, parentObjectOrSize)
 		parentAbsoluteSize = camera.ViewportSize
 	end
 
-	if layout.ClassName == 'UIGridLayout' then
+	if className == 'UIGridLayout' then
 		addConstraint(
 			layout,
 			absoluteSizeFromUDim2(layout.CellSize, parentAbsoluteSize)
