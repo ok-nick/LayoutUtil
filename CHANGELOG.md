@@ -4,7 +4,7 @@
 
 ## [2.0.0] - 2021/29/02
 * Completed recreation yet again, utilizing the new `AutomaticCanvasSize` property and the power of
-  UIAspectRatioConstraints. The latest update has been described [here]().
+  UIAspectRatioConstraints. The latest update has been described [here](https://devforum.roblox.com/t/layoututil-automatically-sizes-a-scrollingframes-uigridlayout-uilistlayout/720840/46?u=iinemo).
 
 ## [1.0.0] - 2020/17/11
 * [Complete recode.](https://devforum.roblox.com/t/layoututil-automatically-sizes-a-scrollingframes-uigridlayout-uilistlayout/720840/36?u=iinemo)
