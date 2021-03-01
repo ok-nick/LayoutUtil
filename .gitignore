@@ -1,8 +1,12 @@
 old
 TODO.md
+
 roblox.toml
-node_modules
 bin/**
+
+node_modules
+out
+include
 
 /**/*.rbxmx
 
