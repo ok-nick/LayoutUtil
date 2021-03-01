@@ -44,7 +44,7 @@ jobs:
           working-directory: .github/workflows
 
       - name: Build place file
-        run: rojo build --output bin/test-place.rbxlx tests/default.project.json
+        run: rojo build --output tests/test-place.rbxlx tests/default.project.json
 
       - name: Run tests
-        run: run-in-roblox --place bin/test-place.rbxlx --script tests/test.server.lua
+        run: run-in-roblox --place tests/test-place.rbxlx --script tests/test.server.lua
