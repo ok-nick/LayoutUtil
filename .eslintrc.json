@@ -9,13 +9,11 @@
 	},
 	"plugins": [
 		"@typescript-eslint",
-		"roblox-ts",
-		"prettier"
+		"roblox-ts"
 	],
 	"extends": [
 		"plugin:@typescript-eslint/recommended",
-		"plugin:roblox-ts/recommended",
-		"plugin:prettier/recommended"
+		"plugin:roblox-ts/recommended"
 	],
 	"rules": {
 		"semi": "warn",
