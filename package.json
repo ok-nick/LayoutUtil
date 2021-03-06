@@ -1,6 +1,6 @@
 {
   "name": "@rbxts/layoututil",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Calculates and inserts UIAspectRatioConstraints, based on the UIGridLayout/UIListLayout provided, to maintain each child element's aspect ratio.",
   "keywords": [
     "game",
@@ -16,7 +16,10 @@
   },
   "types": "typings/index.d.ts",
   "main": "src/init.lua",
-  "files": ["src", "typings"],
+  "files": [
+    "src",
+    "typings"
+  ],
   "scripts": {
     "prepublishOnly": "rbxtsc",
     "eslint": "eslint typings/** --max-warnings 0"
