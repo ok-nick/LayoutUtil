@@ -2,23 +2,30 @@
   "name": "@rbxts/layoututil",
   "version": "2.0.2",
   "description": "Calculates and inserts UIAspectRatioConstraints, based on the UIGridLayout/UIListLayout provided, to maintain each child element's aspect ratio.",
-  "keywords": ["game", "library", "ui", "roblox", "rbxts"],
+  "keywords": [
+    "game",
+    "library",
+    "ui",
+    "roblox",
+    "rbxts"
+  ],
   "homepage": "https://github.com/ok-nick/LayoutUtil/blob/master/README.md",
   "repository": {
     "type": "git",
-	"url": "https://github.com/ok-nick/LayoutUtil"
+    "url": "https://github.com/ok-nick/LayoutUtil"
   },
-  "main": "out/init.lua",
+  "types": "typings/index.d.ts",
+  "main": "src/init.lua",
+  "files": ["src", "typings"],
   "scripts": {
     "prepublishOnly": "rbxtsc",
-	"eslint": "eslint typings/** --max-warnings 0"
+    "eslint": "eslint typings/** --max-warnings 0"
   },
   "author": "ok-nick",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
-  "types": "out/index.d.ts",
   "devDependencies": {
     "@rbxts/compiler-types": "^1.0.0-beta.16.1",
     "@rbxts/types": "^1.0.456",
