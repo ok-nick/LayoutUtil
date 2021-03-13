@@ -1,4 +1,4 @@
-# LayoutUtil Changelog
+# Changelog
 
 ## [Unreleased]
 
