@@ -17,7 +17,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Change to CRLF line endings
-        run: git config --global core.autocrlf true
+        run: |
+          git config --global core.autocrlf true
+          git config --global core.eol crlf
 
       - name: Format Luau using StyLua
         run: stylua src tests plugin -c --config-path stylua.toml
