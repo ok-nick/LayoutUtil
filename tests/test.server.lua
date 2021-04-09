@@ -20,9 +20,9 @@ end
 
 local layout = Instance.new('UIGridLayout') -- Could be a UIGridLayout or UIListLayout
 layout.CellSize = UDim2.fromScale(0.3, 0.3)
+layout.Parent = scrollingFrame
 
 -- Apply LayoutUtil
-LayoutUtil(layout, scrollingFrame)
+LayoutUtil.maintain(layout)
 
-layout.Parent = scrollingFrame
 gui.Parent = StarterGui
