@@ -97,4 +97,12 @@ function LayoutUtil.watch(layout: UIListLayout): RBXScriptConnection
 	end)
 end
 
+--[=[
+	Automatically does everything, you can provide a ScrollingFrame if u want,
+	auto calls watch, resize, and maintain
+
+]=]
+function LayoutUtil.auto()
+end
+
 return LayoutUtil
