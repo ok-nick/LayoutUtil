@@ -1,24 +1,30 @@
 --[[
 	LayoutUtil
-	v2.0.0
+	v3.0.0
 
 	Roblox: iiNemo
 	Discord: nickk#9163
 ]]
 
-local INVALID_ARG = [[bad argument #%d to 'LayoutUtil' (%s expected, got %s)]]
+local NOT_DESCENDANT_OF = [[%s is not a descendant of `%s`]]
+local INVALID_PARENT = [[Parent of class, %s, is not a `%s`]]
 
 local camera = workspace.CurrentCamera
 
-local function toOffset(udim, parentOffset)
+local LayoutUtil = {}
+
+local function toOffset(udim: UDim, parentOffset: number): number
 	return (udim.Scale * parentOffset) + udim.Offset
 end
 
-local function absoluteSizeFromUDim2(childUDim2, parentAbsoluteSize)
+local function absoluteSizeFromUDim2(childUDim2: UDim2, parentAbsoluteSize: Vector2): Vector2
 	return Vector2.new(toOffset(childUDim2.X, parentAbsoluteSize.X), toOffset(childUDim2.Y, parentAbsoluteSize.Y))
 end
 
-local function addConstraint(object, absoluteSize)
+--[=[
+
+]=]
+function LayoutUtil.constraint(object: GuiObject, absoluteSize: Vector2)
 	local constraint = object:FindFirstChildOfClass('UIAspectRatioConstraint')
 		or Instance.new('UIAspectRatioConstraint')
 	constraint.AspectRatio = absoluteSize.X / absoluteSize.Y
@@ -26,47 +32,69 @@ local function addConstraint(object, absoluteSize)
 end
 
 --[=[
-	Automatically inserts and calculates UIAspectRatioConstraints into the corresponding UIGridLayout/UIListLayout. The
-	parent parameter is optional, but should be explicitly provided if the layout hasn't been parented. In order to
-	calculate the AspectRatio, I need the size of the UILayout (or children of a UIListLayout) in offset. Therefor if the
-	parent isn't a GuiObject or a Vector2, it will assume the parent size is the screens resolution.
+	Add parameter to specify parent size
 
-	@param {UIGridLayout | UIListLayout} layout The UILayout to be applied.
-	@param {GuiObject | Instance | Vector2} [parentObjectOrSize] The object (or Vector2) to be recognized as the
-		parenting AbsoluteSize; defaults to the parent's AbsoluteSize otherwise the screen's resolution.
 ]=]
-return function(layout, parentObjectOrSize)
-	local layoutClass = typeof(layout) == 'Instance' and layout.ClassName
-	assert(
-		layoutClass == 'UIGridLayout' or layoutClass == 'UIListLayout',
-		INVALID_ARG:format(1, 'UIGridLayout or UIListLayout', layoutClass)
-	)
-	local parentType = typeof(parentObjectOrSize)
-	assert(
-		parentObjectOrSize == nil
-			or parentType == 'Instance'
-			and parentObjectOrSize:IsA('GuiObject')
-			or parentType == 'Vector2',
-		INVALID_ARG:format(2, 'GuiObject or Vector2', parentType == 'Instance' and parentType.ClassName or parentType)
-	)
+function LayoutUtil.maintain(layout: UIGridLayout | UIListLayout, parentSize: Vector2)
+	local layoutClass = layout.ClassName
+	local parent = layout.Parent
 
-	local parent = parentObjectOrSize or layout.Parent
 	local parentAbsoluteSize
-	if parent:IsA('GuiObject') then
+	if not parentSize then
+		assert(parent:IsDescendantOf(game), NOT_DESCENDANT_OF:format(layoutClass, 'game')) -- AbsoluteSize isn't set until the "GuiBase2d" is a descendant of the game.
+		assert(parent:IsA('GuiObject'), INVALID_PARENT:format(parent.ClassName, 'GuiObject'))
+
 		parentAbsoluteSize = parent.AbsoluteSize
-	elseif typeof(parentObjectOrSize) == 'Vector2' then
-		parentAbsoluteSize = parentObjectOrSize
 	else
-		parentAbsoluteSize = camera.ViewportSize
+		parentAbsoluteSize = parentSize
 	end
 
 	if layoutClass == 'UIGridLayout' then
-		addConstraint(layout, absoluteSizeFromUDim2(layout.CellSize, parentAbsoluteSize))
+		LayoutUtil.constraint(layout, absoluteSizeFromUDim2(layout.CellSize, parentAbsoluteSize))
 	else -- UIListLayout
+		-- TODO: Check if parent exists
+
 		for _, child in ipairs(parent:GetChildren()) do
 			if child:IsA('GuiObject') then
-				addConstraint(child, absoluteSizeFromUDim2(child.Size, parentAbsoluteSize))
+				LayoutUtil.constraint(child, absoluteSizeFromUDim2(child.AbsoluteSize, parentAbsoluteSize))
 			end
 		end
 	end
 end
+
+--[=[
+	AutomaticCanvasSize is very buggy, here is the temp fix
+
+]=]
+function LayoutUtil.resize(scrollingFrame: ScrollingFrame, layout: UIGridLayout | UIListLayout, axes: Enum.AutomaticSize): RBXScriptConnection
+	return camera:GetPropertyChangedSignal('ViewportSize'):Connect(function()
+		local contentSize = layout.AbsoluteContentSize
+		local canvasSize
+		if axes == Enum.AutomaticSize.Y then
+			canvasSize = UDim2.fromOffset(0, contentSize.Y)
+		elseif axes == Enum.AutomaticSize.X then
+			canvasSize = UDim2.fromOffset(contentSize.X, 0)
+		else -- Enum.AutomaticSize.XY or Enum.AutomaticSize.None
+			canvasSize = UDim2.fromOffset(contentSize.X, contentSize.Y)
+		end
+
+		scrollingFrame.CanvasSize = canvasSize
+	end)
+end
+
+--[=[
+	GridLayouts don't need to be watched since we don't do anything with the children
+
+]=]
+function LayoutUtil.watch(layout: UIListLayout): RBXScriptConnection
+	local parent = layout.Parent
+	-- TODO: Check if parent exists
+
+	return parent.ChildAdded:Connect(function(child)
+		if child:IsA('GuiObject') then
+			LayoutUtil.constraint(child, parent.AbsoluteSize)
+		end
+	end)
+end
+
+return LayoutUtil
