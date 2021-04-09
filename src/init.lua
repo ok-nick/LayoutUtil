@@ -6,30 +6,24 @@
 	Discord: nickk#9163
 ]]
 
-
 local INVALID_ARG = [[bad argument #%d to 'LayoutUtil' (%s expected, got %s)]]
 
-
 local camera = workspace.CurrentCamera
-
 
 local function toOffset(udim, parentOffset)
 	return (udim.Scale * parentOffset) + udim.Offset
 end
 
 local function absoluteSizeFromUDim2(childUDim2, parentAbsoluteSize)
-	return Vector2.new(
-		toOffset(childUDim2.X, parentAbsoluteSize.X),
-		toOffset(childUDim2.Y, parentAbsoluteSize.Y)
-	)
+	return Vector2.new(toOffset(childUDim2.X, parentAbsoluteSize.X), toOffset(childUDim2.Y, parentAbsoluteSize.Y))
 end
 
 local function addConstraint(object, absoluteSize)
-	local constraint = object:FindFirstChildOfClass('UIAspectRatioConstraint') or Instance.new('UIAspectRatioConstraint')
+	local constraint = object:FindFirstChildOfClass('UIAspectRatioConstraint')
+		or Instance.new('UIAspectRatioConstraint')
 	constraint.AspectRatio = absoluteSize.X / absoluteSize.Y
 	constraint.Parent = object
 end
-
 
 --[=[
 	Automatically inserts and calculates UIAspectRatioConstraints into the corresponding UIGridLayout/UIListLayout. The
@@ -39,7 +33,7 @@ end
 
 	@param {UIGridLayout | UIListLayout} layout The UILayout to be applied.
 	@param {GuiObject | Instance | Vector2} [parentObjectOrSize] The object (or Vector2) to be recognized as the
-		parenting AbsoluteSize; defaults to the screen's resolution.
+		parenting AbsoluteSize; defaults to the parent's AbsoluteSize otherwise the screen's resolution.
 ]=]
 return function(layout, parentObjectOrSize)
 	local layoutClass = typeof(layout) == 'Instance' and layout.ClassName
@@ -47,12 +41,13 @@ return function(layout, parentObjectOrSize)
 		layoutClass == 'UIGridLayout' or layoutClass == 'UIListLayout',
 		INVALID_ARG:format(1, 'UIGridLayout or UIListLayout', layoutClass)
 	)
-	local parentClass = typeof(parentObjectOrSize)
+	local parentType = typeof(parentObjectOrSize)
 	assert(
 		parentObjectOrSize == nil
-		or parentClass == 'Instance' and parentObjectOrSize:IsA('GuiObject')
-		or parentClass == 'Vector2',
-		INVALID_ARG:format(2, 'GuiObject or Vector2', parentClass)
+			or parentType == 'Instance'
+			and parentObjectOrSize:IsA('GuiObject')
+			or parentType == 'Vector2',
+		INVALID_ARG:format(2, 'GuiObject or Vector2', parentType == 'Instance' and parentType.ClassName or parentType)
 	)
 
 	local parent = parentObjectOrSize or layout.Parent
@@ -66,17 +61,11 @@ return function(layout, parentObjectOrSize)
 	end
 
 	if layoutClass == 'UIGridLayout' then
-		addConstraint(
-			layout,
-			absoluteSizeFromUDim2(layout.CellSize, parentAbsoluteSize)
-		)
+		addConstraint(layout, absoluteSizeFromUDim2(layout.CellSize, parentAbsoluteSize))
 	else -- UIListLayout
 		for _, child in ipairs(parent:GetChildren()) do
 			if child:IsA('GuiObject') then
-				addConstraint(
-					child,
-					absoluteSizeFromUDim2(child.Size, parentAbsoluteSize)
-				)
+				addConstraint(child, absoluteSizeFromUDim2(child.Size, parentAbsoluteSize))
 			end
 		end
 	end

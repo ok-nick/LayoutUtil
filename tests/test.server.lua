@@ -3,7 +3,6 @@ local StarterGui = game:GetService('StarterGui')
 
 local LayoutUtil = require(ReplicatedStorage.LayoutUtil)
 
-
 -- Construct the UI
 local gui = Instance.new('ScreenGui')
 

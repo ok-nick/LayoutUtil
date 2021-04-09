@@ -6,12 +6,10 @@
 	Discord: nickk#9163
 ]]
 
-
 local CLASSES = {
 	UIGridLayout = true,
-	UIListLayout = true
+	UIListLayout = true,
 }
-
 
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local Selection = game:GetService('Selection')
@@ -20,13 +18,9 @@ local LayoutUtil = require(script.LayoutUtil)
 local Assets = require(script.Assets)
 
 local toolbar = plugin:CreateToolbar('LayoutUtil')
-local applyLayout = toolbar:CreateButton(
-	'Apply',
-	'Applies LayoutUtil to the given UIGridLayout or UIListLayout',
-	Assets['icon-32']
-)
+local applyLayout =
+	toolbar:CreateButton('Apply', 'Applies LayoutUtil to the given UIGridLayout or UIListLayout', Assets['icon-32'])
 applyLayout.ClickableWhenViewportHidden = true
-
 
 applyLayout.Click:Connect(function()
 	applyLayout:SetActive(false)
