@@ -11,18 +11,21 @@ jobs:
       - name: Install NPM dependencies
         uses: bahmutov/npm-install@v1.4.5
 
-      - name: Install Lua dependencies
+      - name: Install Luau dependencies
         uses: Roblox/setup-foreman@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Lint Typescript using ESLint
-        run: npm run eslint
+      - name: Format Luau
+        run: stylua src tests plugin -c
 
-      - name: Lint Lua using Selene
+      - name: Lint Luau using Selene
         run: |
           selene generate-roblox-std
           selene src tests plugin
+
+      - name: Lint Typescript using ESLint
+        run: npm run eslint
 
   test:
     runs-on: windows-latest

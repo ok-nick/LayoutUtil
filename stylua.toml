@@ -1,0 +1,2 @@
+line_endings = 'Windows' # Roblox-LSP requires CRLF for specific features
+quote_style = 'AutoPreferSingle'
