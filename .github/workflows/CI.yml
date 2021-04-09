@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Install NPM dependencies
         uses: bahmutov/npm-install@v1.4.5
@@ -15,6 +15,9 @@ jobs:
         uses: Roblox/setup-foreman@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Change to CRLF line endings
+        run: git config --global core.autocrlf true
 
       - name: Format Luau using StyLua
         run: stylua src tests plugin -c --config-path stylua.toml
@@ -32,7 +35,7 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Install Roblox Studio
         uses: OrbitalOwen/roblox-win-installer-action@1.1
