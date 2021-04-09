@@ -21,7 +21,6 @@
     "typings"
   ],
   "scripts": {
-    "prepublishOnly": "rbxtsc",
     "eslint": "eslint typings/** --max-warnings 0"
   },
   "author": "ok-nick",
