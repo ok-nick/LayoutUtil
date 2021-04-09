@@ -16,7 +16,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Format Luau
+      - name: Format Luau using StyLua
         run: stylua src tests plugin -c --config-path stylua.toml
 
       - name: Lint Luau using Selene
