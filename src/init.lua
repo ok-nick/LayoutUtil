@@ -38,14 +38,21 @@ end
 	parent isn't a GuiObject or a Vector2, it will assume the parent size is the screens resolution.
 
 	@param {UIGridLayout | UIListLayout} layout The UILayout to be applied.
-	@param {GuiObject | Instance | Vector2} [parentObjectOrSize] The object (or Vector2) to be recognized as the parent
-		in order to retrieve the AbsoluteSize (non-GuiObjects or nil, defaults to the screens resolution).
+	@param {GuiObject | Instance | Vector2} [parentObjectOrSize] The object (or Vector2) to be recognized as the
+		parenting AbsoluteSize; defaults to the screen's resolution.
 ]=]
 return function(layout, parentObjectOrSize)
-	local className = typeof(layout) == 'Instance' and layout.ClassName
+	local layoutClass = typeof(layout) == 'Instance' and layout.ClassName
 	assert(
-		className == 'UIGridLayout' or className == 'UIListLayout',
-		INVALID_ARG:format(1, 'UIGridLayout or UIListLayout', className)
+		layoutClass == 'UIGridLayout' or layoutClass == 'UIListLayout',
+		INVALID_ARG:format(1, 'UIGridLayout or UIListLayout', layoutClass)
+	)
+	local parentClass = typeof(parentObjectOrSize)
+	assert(
+		parentObjectOrSize == nil
+		or parentClass == 'Instance' and parentObjectOrSize:IsA('GuiObject')
+		or parentClass == 'Vector2',
+		INVALID_ARG:format(2, 'GuiObject or Vector2', parentClass)
 	)
 
 	local parent = parentObjectOrSize or layout.Parent
@@ -58,7 +65,7 @@ return function(layout, parentObjectOrSize)
 		parentAbsoluteSize = camera.ViewportSize
 	end
 
-	if className == 'UIGridLayout' then
+	if layoutClass == 'UIGridLayout' then
 		addConstraint(
 			layout,
 			absoluteSizeFromUDim2(layout.CellSize, parentAbsoluteSize)
