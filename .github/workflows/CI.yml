@@ -6,20 +6,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Install NPM dependencies
-        uses: bahmutov/npm-install@v1.4.5
-
-      - name: Install Luau dependencies
-        uses: Roblox/setup-foreman@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Change to CRLF line endings
         run: |
           git config --global core.autocrlf true
           git config --global core.eol crlf
+
+      - uses: actions/checkout@v2
+
+      - name: Install Typescript tools
+        uses: bahmutov/npm-install@v1.4.5
+
+      - name: Install Luau tools
+        uses: Roblox/setup-foreman@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Format Luau using StyLua
         run: stylua src tests plugin -c --config-path stylua.toml
