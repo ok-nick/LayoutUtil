@@ -1,14 +1,11 @@
 --[[
-	LayoutUtilPlugin
-	v2.0.0
-
-	Roblox: iiNemo
-	Discord: nickk#9163
+	LayoutUtil-Plugin v3.0.0
+	https://github.com/ok-nick/LayoutUtil
 ]]
 
 local CLASSES = {
-	UIGridLayout = true,
-	UIListLayout = true,
+	UIGridLayout = 'grid',
+	UIListLayout = 'list',
 }
 
 local ChangeHistoryService = game:GetService('ChangeHistoryService')
@@ -18,8 +15,7 @@ local LayoutUtil = require(script.LayoutUtil)
 local Assets = require(script.Assets)
 
 local toolbar = plugin:CreateToolbar('LayoutUtil')
-local applyLayout =
-	toolbar:CreateButton('Apply', 'Applies LayoutUtil to the given UIGridLayout or UIListLayout', Assets['icon-32'])
+local applyLayout = toolbar:CreateButton('Apply', 'Applies LayoutUtil to the given UILayout', Assets['icon-32'])
 applyLayout.ClickableWhenViewportHidden = true
 
 applyLayout.Click:Connect(function()
@@ -28,13 +24,14 @@ applyLayout.Click:Connect(function()
 
 	local selected = Selection:Get()
 	for _, object in ipairs(selected) do
-		if CLASSES[object.ClassName] then
-			LayoutUtil(object)
-		elseif object.ClassName == 'ScrollingFrame' then
-			for className in pairs(CLASSES) do
+		local layoutType = CLASSES[object.ClassName]
+		if layoutType then
+			LayoutUtil[layoutType](object)
+		elseif object:IsA('GuiBase2d') then
+			for className, innerLayoutType in pairs(CLASSES) do
 				local layout = object:FindFirstChildOfClass(className)
 				if layout then
-					LayoutUtil(layout)
+					LayoutUtil[innerLayoutType](layout)
 					break
 				end
 			end
