@@ -17,12 +17,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Format Luau using StyLua
-        run: stylua src plugin tests bin -c
+        run: stylua src plugin test bin -c
 
       - name: Lint Luau using Selene
         run: |
           selene generate-roblox-std
-          selene src plugin tests bin
+          selene src plugin test bin
 
       - name: Lint Typescript using ESLint
         run: npm run eslint
