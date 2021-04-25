@@ -1,42 +1,95 @@
 <img align = 'right' width = '256' src = 'https://github.com/ok-nick/LayoutUtil/blob/master/assets/icon-256.png?raw=true'/>
 
-# [LayoutUtil v2.0.0](https://github.com/Nickuhhh/LayoutUtil/releases/latest)
+# LayoutUtil
+[![CI Status](https://img.shields.io/github/workflow/status/ok-nick/LayoutUtil/Build)](https://github.com/ok-nick/LayoutUtil/actions?query=workflow%3ABuild) [![Latest Release](https://img.shields.io/github/v/release/ok-nick/LayoutUtil?include_prereleases)](https://github.com/ok-nick/LayoutUtil/releases/latest)
 
-[![Actions Status](https://github.com/ok-nick/LayoutUtil/workflows/CI/badge.svg)](https://github.com/ok-nick/LayoutUtil/actions?query=workflow%3ACI) [![Latest Release](https://img.shields.io/github/release/ok-nick/LayoutUtil.svg)](https://github.com/Nickuhhh/LayoutUtil/releases/latest)
+A Luau library for automatically managing UILayouts.
 
-In version 2.0.0, LayoutUtil has been completely rewritten... yet again. This time, it's much much better >:). No more of the useless and bloated API. LayoutUtil has been completely cleaned up and is composed of only a single function that can be simply called to apply changes. Along with this, I highly suggest ONLY using the plugin, where <u>no scripting at all is involved</u> (as described below). Circumstance will determine whether you need the library during run-time, but it's always something to keep in mind. The new version of LayoutUtil, no longer allows you to specify the ScrollingFrame directly. This was done to be more explicit and to make the code more readable. With that, this feature was removed due to it being unnecessary and only contributing to the bloat.
+LayoutUtil's main purpose is to maintain the aspect ratio of each child element within a ScrollingFrame while using a UILayout. With that, it offer features to automatically resize a ScrollingFrames' canvas.\
+Although AutomaticCanvasSize natively exists for ScrollingFrames (it's very buggy), it is essential to be used in conjunction with LayoutUtil to prevent your UI from stretching.
 
-To get into the specifics, LayoutUtil no longer has any connections, any run-time manipulation, it simply utilizes and pre-calculates UIAspectRatioConstraints. With the new release of the [AutomaticCanvasSize](https://developer.roblox.com/en-us/api-reference/property/ScrollingFrame/AutomaticCanvasSize) property of a ScrollingFrame, you simply don't need to worry about any prerequisites. This means, no more having to rely on converting your UI to scale (although I strongly suggest doing so). Setting your `CanvasSize` to (0, 0, 0, 0) is optional, but while using the AutomaticCanvasSize property, it will act as canvas size padding. Unfortunately with this property being so new, there are specific problems as described in this [thread](https://devforum.roblox.com/t/automatic-size-property-now-available/1052320?u=iinemo), but they should be quickly resolved over time.
+## Installation
+There are multiple ways to install LayoutUtil:
 
-**One thing to note is LayoutUtil doesn't assign the `AutomaticCanvasSize` property, this should be done by the user.** As a side note, some people will say *"then what's the point of LayoutUtil?"* Its primary goal was to maintain the aspect ratio of each child element within a ScrollingFrame, while utilizing these layouts. This is what it currently does and what it will be doing over updates to come.
+### Using Studio:
+Installing the library is simple, just download the `.rbxm` file from the [releases](https://github.com/ok-nick/LayoutUtil/releases) and import directly into studio.\
+I recommend installing [LayoutUtil-Plugin](LayoutUtil-Plugin](https://www.roblox.com/library/6723751472/LayoutUtil-Plugin)) from the catalog, although dragging the `.rbxm` file from the [releases](https://github.com/ok-nick/LayoutUtil/releases) into your plugin folder works.
+[LayoutUtil](https://www.roblox.com/library/6723754061/LayoutUtil) and[ LayoutUtil-Plugin](https://www.roblox.com/library/6723751472/LayoutUtil-Plugin) are both available on the catalog.
 
-## [Typescript Users](https://roblox-ts.com/)
-Typescript is still supported under [roblox-ts](https://roblox-ts.com/) and version 2.0.0 has been published to [npm](https://www.npmjs.com/package/@rbxts/layoututil).
+### Using Rojo:
+Install the `.rbxm` from the [releases](https://github.com/ok-nick/LayoutUtil/releases) and add it to your `.project.json` file.
 
-## [Roact Users](https://github.com/Roblox/roact)
-Unfortunately with how Roact works, a LayoutUtil component just simply isn't feasible. I've tried a variety of solutions, all leading to dead-ends. Although you could fork the code and create a component to automatically calculate a UIAspectRatioConstraint's aspect ratio. A friend recommended [this open-sourced component](https://github.com/sayhisam1/rbx-roact-components/blob/master/src/AutoUIScale.lua), created by @sayhisam1, which utilizes UIScales uniquely and successfully. You can read more about it within the code, but it seems to really help overall with designing UI, especially for keeping a consistent size across all resolutions.
+### Using Kayak:
+In your `rotriever.toml` file under the `[dependencies]` section, add:\
+`LayoutUtil = 'https://github.com/ok-nick/LayoutUtil.git'`
 
-## [LayoutUtil-Plugin v2.0.0](https://www.roblox.com/library/6460099901/LayoutUtil-v2)
-Yes, even the plugin had a complete remake. LayoutUtilPlugin gets straight to the point, none of the extra fancy buttons to help with designing your UI, you could simply press the single button while selecting your UILayout/ScrollingFrame(s) to automatically insert and calculate the UIAspectRatioConstraints. LayoutUtilPlugin uses the LayoutUtil library internally... obviously, but I highly recommend it if possible as it would save unnecessary coding.
-
-[LayoutUtil-Plugin v1.0.0](https://www.roblox.com/library/5965597514/LayoutUtilPlugin) did have a few handy extra UI tools, I plan to release a separate plugin which is specifically for this. I know most converter plugins aren't as in-depth with converting and aren't as supportive, which is why this could be useful. Not only that, but automatically calculating aspect ratios is a gift from heaven. There is no guarantee when this will be released, which is why I say it will be some time in the future - stay tuned.
-
-## Where are the docs?
-Documentation isn't needed, there is not much of an API and it's fairly basic - straight to the point. The [README.md](https://github.com/ok-nick/LayoutUtil/blob/master/README.md) suffices and should be enough to get a complete understanding of how to use it. Although if there are any questions or concerns, feel free to DM me.
+### Using npm (roblox-ts):
+DO THIS
 
 ## Examples
-Obviously, in this example, you'd need to define `LayoutUtil` and `myUIGridLayout`.
+### Maintaining UIListLayouts
 ```lua
-LayoutUtil(myUIGridLayout)
+local layout = script.Parent.UIListLayout
+LayoutUtil.list(layout)
+LayoutUtil.watch(layout)
 ```
-LayoutUtil also provides a second parameter if the parent of your UILayout hasn't been set. This should normally be defined as your ScrollingFrame, although it also accepts a Vector2 since it just needs the AbsoluteSize. If a non-GuiObject is passed it will assume the parent size is the screens resolution. If a GuiObject is passed, it will use its AbsoluteSize.
+`.list` will immediately maintain the sizes of each child. `.watch` will connect to updates on new children and maintain the size.
+
+### Maintaining UIGridLayouts
 ```lua
-LayoutUtil(myUIGridLayout, ScrollingFrame)
+local layout = script.Parent.UIGridLayout
+LayoutUtil.grid(layout)
 ```
+Notice how we don't have to use `.watch` function like we did in the [UIListLayout](#Maintaining-UIListLayouts) example. This is because a `UIGridLayout` only needs a `UIAspectRatioConstraint` inserted **ONCE** as it's child. This differs from a `UIListLayout` where you'd need to insert a constraint per child.
+### Automatically resizing a ScrollingFrame
+```lua
+local scrollingFrame = script.Parent.ScrollingFrame
+LayoutUtil.resize(scrollingFrame)
+```
+You might be wondering, "why don't I just use `AutomaticCanvasSize`?" This is because `AutomaticCanvasSize`, despite being released from beta, has numerous problems that haven't been resolved since months from release.
 
-## Contact
-Roblox: `iiNemo`\
-Discord: `nickk#9163` *- Try to DM me directly rather than adding (for a quicker response).*
+## Documentation
+### LayoutUtil.constraint
+```lua
+LayoutUtil.constraint(object: GuiObject, absoluteSize: Vector2?)
+```
+Inserts and calculates a `UIAspectRatioConstraint` into the specified `object`. This function will reuse `UIAspectRatioConstraints` if one exists as a child.\
+The `absoluteSize` parameter is optionally set to the object's `AbsoluteSize`. If the object (or it's ancestor) hasn't been parented, by default Roblox assigns the `AbsoluteSize` as (0, 0), which is why this parameter is necessary.
 
+### LayoutUtil.grid
+```lua
+LayoutUtil.grid(layout: UIGridLayout, parentSize: Vector2?)
+```
+Inserts and calculates a `UIAspectRatioConstraint` into the `UIGridLayout` to maintain each child's aspect ratio.\
+Again, as stated in the [constraint](#LayoutUtil.constraint) function, if the object is not a descendant of `game`, the `AbsoluteSize` of the object will be (0, 0), which is why the second parameter is necessary.
 
-# [Repository](https://github.com/ok-nick/LayoutUtil) | [Release](https://github.com/Nickuhhh/LayoutUtil/releases/latest) | [Roblox Catalog](https://www.roblox.com/library/6460129603/LayoutUtil-v2) | [Plugin](https://www.roblox.com/library/6460099901/LayoutUtil-v2)
+### LayoutUtil.list
+```lua
+LayoutUtil.list(layout: UIListLayout, parentSize: Vector2?)
+```
+Inserts and calculates a `UIAspectRatioConstraint` into each child neighboring the `UIListLayout` so that they maintain their aspect ratio.\
+Again, as stated in the [constraint](#LayoutUtil.constraint) function, if the object is not a descendant of `game`, the `AbsoluteSize` of the object will be (0, 0), which is why the second parameter is necessary.
+
+### LayoutUtil.watch
+```lua
+LayoutUtil.watch(layout: UIListLayout) -> RBXScriptConnection
+```
+Watches for new children being added to the parenting ScrollingFrame, then inserts and calculates the `UIAspectRatioConstraint`.\
+It is important to recognize that this function is only available to `UIListLayouts`. This is because a `UIGridLayout` only needs a constraint within itself, whereas a `UIListLayout` needs one per neighboring child.
+
+### LayoutUtil.resize
+```lua
+LayoutUtil.resize(scrollingFrame: ScrollingFrame, layout: UIListLayout | UIGridLayout, axis: Enum.AutomaticSize) -> RBXScriptConnection
+```
+Automatically resizes the canvas of a ScrollingFrame.\
+This function replicates the `AutomaticCanvasSize` property except isn't completely broken. In future versions of LayoutUtil, when `AutomaticCanvasSize` becomes stable, this function will be deprecated and removed.
+
+## FAQ
+### What is the purpose of this library if we have the AutomaticCanvasSize property?
+Please refer to the explanation described at the top of the [README](#LayoutUtil).
+
+### Any more questions?
+The best way to get in contact with me is [through discord](https://discord.gg/w9Bc6xH7uC).
+
+## License
+LayoutUtil is [MIT licensed](https://github.com/ok-nick/LayoutUtil/blob/main/LICENSE.md).
