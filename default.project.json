@@ -1,18 +1,21 @@
 {
 	"name": "LayoutUtil",
-
 	"tree": {
 		"$className": "DataModel",
 
 		"ReplicatedStorage": {
 			"$className": "ReplicatedStorage",
 
-			"Library": {
-				"$path": "library.project.json"
+			"LayoutUtil": {
+				"$path": "bin/library.project.json"
 			},
 
-			"Plugin": {
-				"$path": "plugin.project.json"
+			"LayoutUtil-Plugin": {
+				"$path": "bin/plugin.project.json"
+			},
+
+			"tests": {
+				"$path": "test/tests"
 			}
 		}
 	}

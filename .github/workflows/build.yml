@@ -1,0 +1,106 @@
+name: Build
+on: [push, pull_request]
+
+jobs:
+  format_lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install NPM dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Install Luau tools
+        uses: Roblox/setup-foreman@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Format Luau using StyLua
+        run: stylua src plugin tests bin -c
+
+      - name: Lint Luau using Selene
+        run: |
+          selene generate-roblox-std
+          selene src plugin tests bin
+
+      - name: Lint Typescript using ESLint
+        run: npm run eslint
+
+  unit-test:
+    runs-on: windows-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Install Roblox Studio
+        uses: OrbitalOwen/roblox-win-installer-action@1.1
+        with:
+          cookie: ${{ secrets.ROBLOSECURITY }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install tools
+        uses: Roblox/setup-foreman@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build place file
+        run: rojo build bin/test.project.json --output bin/test-place.rbxlx
+
+      - name: Run unit tests
+        run: run-in-roblox --place bin/test-place.rbxlx --script bin/run-ci-tests.server.lua
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '[release]')
+    needs: [format_lint, unit-test]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install tools
+      uses: Roblox/setup-foreman@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build files
+      run: |
+        rojo build bin/library.project.json --output bin/LayoutUtil.rbxm
+        rojo build bin/plugin.project.json --output bin/LayoutUtil-Plugin.rbxm
+
+    - name: Get version
+      run: |
+        VERSION=`grep -Po "(?<=^version = ')([^']+)" rotriever.toml`
+
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Get changelog
+      run: |
+        CHANGELOG_ENTRY=`grep --color=never -m 1 -Po '## \K(\[[0-9\.]+\].+)' CHANGELOG.md`
+        DESCRIPTION=`bash bin/extract-changelog.sh $CHANGELOG_ENTRY`
+
+        echo "CHANGELOG_ENTRY=$CHANGELOG_ENTRY" >> $GITHUB_ENV
+
+        echo "CHANGELOG_DESCRIPTION<<EOF" >> $GITHUB_ENV
+        echo "$DESCRIPTION" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+
+    - name: Upload
+      run: |
+        rojo upload bin/library.project.json --asset_id 6723754061 --cookie ${{ secrets.ROBLOSECURITY }}
+        rojo upload bin/plugin.project.json --asset_id 6723751472 --cookie ${{ secrets.ROBLOSECURITY }}
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: ${{ env.CHANGELOG_ENTRY }}
+        tag_name: ${{ env.VERSION }}
+        body: ${{ env.CHANGELOG_DESCRIPTION }}
+        files: |
+          bin/LayoutUtil.rbxm
+          bin/LayoutUtil-Plugin.rbxm
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

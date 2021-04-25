@@ -1,0 +1,22 @@
+{
+	"name": "LayoutUtil-tests-ci",
+	"tree": {
+		"$className": "DataModel",
+
+		"ReplicatedStorage": {
+			"$className": "ReplicatedStorage",
+
+			"LayoutUtil": {
+				"$path": "../src"
+			},
+
+			"tests": {
+				"$path": "../test/tests"
+			},
+
+			"TestEz": {
+				"$path": "../test/TestEz"
+			}
+		}
+	}
+}
