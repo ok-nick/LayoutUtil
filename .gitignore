@@ -1,14 +1,15 @@
-old
+ignore
 TODO.md
 
 roblox.toml
-bin/**
 
 node_modules
 out
 include
+.obsidian
+.DS_STORE
 
-/**/*.rbxmx
+*.rbxmx
 
-/**/*.rbxlx
-/**/*.rbxlx.lock
+*.rbxlx
+*.rbxlx.lock
