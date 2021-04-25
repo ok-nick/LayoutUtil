@@ -30,6 +30,7 @@
 ## [0.1.0] - 2020-08-30
 * Initial release.
 
+<!-- -->
 [unreleased]: https://github.com/ok-nick/LayoutUtil/compare/v2.0.0...HEAD
 [2.0.0]: https://github.com/ok-nick/LayoutUtil/compare/v1.0.0...v2.0.0
 [1.0.0]: https://github.com/ok-nick/LayoutUtil/compare/v0.1.6...v1.0.0
