@@ -1,0 +1,30 @@
+{
+	"name": "LayoutUtil-tests",
+	"tree": {
+		"$className": "DataModel",
+
+		"ReplicatedStorage": {
+			"$className": "ReplicatedStorage",
+
+			"LayoutUtil": {
+				"$path": "../src"
+			},
+
+			"tests": {
+				"$path": "tests"
+			},
+
+			"TestEz": {
+				"$path": "TestEz"
+			}
+		},
+
+		"ServerScriptService": {
+			"$className": "ServerScriptService",
+
+			"run-tests": {
+				"$path": "run-tests.server.lua"
+			}
+		}
+	}
+}
