@@ -24,7 +24,8 @@ In your `rotriever.toml` file under the `[dependencies]` section, add:\
 `LayoutUtil = 'https://github.com/ok-nick/LayoutUtil.git'`
 
 ### Using npm (roblox-ts):
-DO THIS
+Installing through npm is easy, simply run this command in your terminal:
+`npm i @rbxts/LayoutUtil`
 
 ## Examples
 ### Maintaining UIListLayouts
