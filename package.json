@@ -1,7 +1,7 @@
 {
   "name": "@rbxts/layoututil",
   "version": "3.0.0",
-  "description": "Calculates and inserts UIAspectRatioConstraints, based on the UIGridLayout/UIListLayout provided, to maintain each child element's aspect ratio.",
+  "description": "LayoutUtil; manages aspect ratios of UILayouts.",
   "keywords": [
     "game",
     "library",
