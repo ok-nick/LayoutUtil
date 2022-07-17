@@ -7,6 +7,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          repository: 'LPGhatguy/aftman'
+          ref: 'refs/tags/v0.2.5'
 
       - name: Install Typescript dependencies
         uses: bahmutov/npm-install@v1.8.17
@@ -18,8 +21,6 @@ jobs:
       
       - name: Install tooling
         run: |
-          gh release download --repo LPGhatguy/aftman --pattern *linux*
-          unzip aftman*.zip
           aftman self-install 
           aftman install --no-trust-check
 
