@@ -9,7 +9,7 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Install NPM dependencies
-        uses: bahmutov/npm-install@v1.4.5
+        uses: bahmutov/npm-install@v1.8.17
 
       - name: Install Luau dependencies
         uses: Roblox/setup-foreman@v1
@@ -17,7 +17,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Format Luau
-        run: stylua src tests plugin -c --config-path stylua.toml
+        run: stylua src tests plugin -c
 
       - name: Lint Luau using Selene
         run: |
