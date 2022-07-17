@@ -1,0 +1,5 @@
+[tools]
+selene = "Kampfkarren/selene@0.19.1"
+stylua = "JohnnyMorganz/stylua@0.14.1"
+rojo = "rojo-rbx/rojo@7.2.1"
+# run-in-roblox = { source = 'rojo-rbx/run-in-roblox', version = '0.3.0' }
