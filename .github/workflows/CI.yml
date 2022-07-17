@@ -11,10 +11,17 @@ jobs:
       - name: Install Typescript dependencies
         uses: bahmutov/npm-install@v1.8.17
 
+      # - name: Install tooling
+      #   uses: Roblox/setup-foreman@v1
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      
       - name: Install tooling
-        uses: Roblox/setup-foreman@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release download --repo LPGhatguy/aftman --pattern *linux*
+          unzip aftman*.zip
+          aftman self-install 
+          aftman install --no-trust-check
 
       - name: Format Luau
         run: stylua src tests plugin -c
