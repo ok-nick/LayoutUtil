@@ -7,6 +7,9 @@
  * @param {UIGridLayout | UIListLayout} layout The UILayout to be applied.
  * @param {GuiObject | Instance | Vector2} [parentObjectOrSize] The object (or Vector2) to be recognized as the parent
  * 		in order to retrieve the AbsoluteSize (non-GuiObjects or nil, defaults to the screens resolution).
-*/
-declare const LayoutUtil: (layout: UIGridLayout | UIListLayout, parentObjectOrSize?: GuiObject | Instance | Vector2) => void;
+ */
+declare const LayoutUtil: (
+    layout: UIGridLayout | UIListLayout,
+    parentObjectOrSize?: GuiObject | Instance | Vector2
+) => void;
 export = LayoutUtil;
