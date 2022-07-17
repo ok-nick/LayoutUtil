@@ -1,8 +1,0 @@
-name = 'LayoutUtilPlugin'
-
-[[inputs]]
-glob = '*.png'
-
-codegen = true
-codegen-path = '../../Assets.lua'
-codegen-base-path = ''
