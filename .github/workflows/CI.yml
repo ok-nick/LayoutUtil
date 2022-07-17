@@ -27,26 +27,27 @@ jobs:
       - name: Lint Typescript using ESLint
         run: npm run eslint
 
-  test:
-    runs-on: windows-latest
-    timeout-minutes: 10
-
-    steps:
-      - uses: actions/checkout@v1
-
-      - name: Install Roblox Studio
-        uses: OrbitalOwen/roblox-win-installer-action@1.1
-        with:
-          cookie: ${{ secrets.ROBLOSECURITY }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install Tools
-        uses: Roblox/setup-foreman@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build place file
-        run: rojo build --output tests/test-place.rbxlx tests/default.project.json
-
-      - name: Run tests
-        run: run-in-roblox --place tests/test-place.rbxlx --script tests/test.server.lua
+  # run-in-roblox is a hit or miss and fails often
+  # test:
+  #   runs-on: windows-latest
+  #   timeout-minutes: 10
+  #
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #
+  #     - name: Install Roblox Studio
+  #       uses: OrbitalOwen/roblox-win-installer-action@1.1
+  #       with:
+  #         cookie: ${{ secrets.ROBLOSECURITY }}
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #     - name: Install Tools
+  #       uses: Roblox/setup-foreman@v1
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #     - name: Build place file
+  #       run: rojo build --output tests/test-place.rbxlx tests/default.project.json
+  #
+  #     - name: Run tests
+  #       run: run-in-roblox --place tests/test-place.rbxlx --script tests/test.server.lua
