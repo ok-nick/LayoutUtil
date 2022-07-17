@@ -15,7 +15,6 @@ local ChangeHistoryService = game:GetService("ChangeHistoryService")
 local Selection = game:GetService("Selection")
 
 local LayoutUtil = require(script.LayoutUtil)
-local Assets = require(script.Assets)
 
 local toolbar = plugin:CreateToolbar("LayoutUtil")
 local applyLayout = toolbar:CreateButton(
