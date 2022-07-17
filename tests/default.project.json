@@ -1,18 +1,18 @@
 {
-	"name": "tests",
-	"tree": {
-		"$className": "DataModel",
-		"ReplicatedStorage": {
-			"$className": "ReplicatedStorage",
-			"LayoutUtil": {
-				"$path": "src"
-			}
-		},
-		"ServerScriptService": {
-			"$className": "ServerScriptService",
-			"test": {
-				"$path": "test.server.lua"
-			}
-		}
-	}
+    "name": "tests",
+    "tree": {
+        "$className": "DataModel",
+        "ReplicatedStorage": {
+            "$className": "ReplicatedStorage",
+            "LayoutUtil": {
+                "$path": "../src"
+            }
+        },
+        "ServerScriptService": {
+            "$className": "ServerScriptService",
+            "test": {
+                "$path": "test.server.lua"
+            }
+        }
+    }
 }
