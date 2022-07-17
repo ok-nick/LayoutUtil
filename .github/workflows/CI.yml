@@ -6,12 +6,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
 
-      - name: Install NPM dependencies
+      - name: Install Typescript dependencies
         uses: bahmutov/npm-install@v1.8.17
 
-      - name: Install Luau dependencies
+      - name: Install tooling
         uses: Roblox/setup-foreman@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -24,7 +24,7 @@ jobs:
           selene generate-roblox-std
           selene src tests plugin
 
-      - name: Lint Typescript using ESLint
+      - name: Lint and format Typescript using ESLint
         run: npm run eslint
 
   # run-in-roblox is a hit or miss and fails often
