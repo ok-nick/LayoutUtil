@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install tooling
+      - name: Install aftman
         run: |
            gh release download --repo LPGhatguy/aftman --pattern *linux*
            unzip aftman*.zip
@@ -17,7 +17,7 @@ jobs:
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: TEST
+      - name: Install tooling
         run: aftman install --no-trust-check
 
       - name: Format Luau
