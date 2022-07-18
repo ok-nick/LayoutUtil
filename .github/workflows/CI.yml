@@ -8,16 +8,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install aftman
+      - name: Install tooling
         run: |
            gh release download --repo LPGhatguy/aftman --pattern *linux*
            unzip aftman*.zip
            ./aftman self-install 
+           echo "$HOME/.aftman/bin" >> $GITHUB_PATH
+           aftman install --no-trust-check
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Install tooling
-        run: aftman install -no-trust-check
 
       - name: Format Luau
         run: stylua src tests plugin -c
