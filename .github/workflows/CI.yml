@@ -14,9 +14,11 @@ jobs:
            unzip aftman*.zip
            ./aftman self-install 
            echo "$HOME/.aftman/bin" >> $GITHUB_PATH
-           aftman install --no-trust-check
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: TEST
+        run: aftman install --no-trust-check
 
       - name: Format Luau
         run: stylua src tests plugin -c
