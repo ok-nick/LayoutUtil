@@ -1,30 +1,18 @@
 {
-	"name": "LayoutUtil-tests",
-	"tree": {
-		"$className": "DataModel",
-
-		"ReplicatedStorage": {
-			"$className": "ReplicatedStorage",
-
-			"LayoutUtil": {
-				"$path": "../src"
-			},
-
-			"tests": {
-				"$path": "tests"
-			},
-
-			"TestEz": {
-				"$path": "TestEz"
-			}
-		},
-
-		"ServerScriptService": {
-			"$className": "ServerScriptService",
-
-			"run-tests": {
-				"$path": "run-tests.server.lua"
-			}
-		}
-	}
+    "name": "tests",
+    "tree": {
+        "$className": "DataModel",
+        "ReplicatedStorage": {
+            "$className": "ReplicatedStorage",
+            "LayoutUtil": {
+                "$path": "../src"
+            }
+        },
+        "ServerScriptService": {
+            "$className": "ServerScriptService",
+            "test": {
+                "$path": "test.server.lua"
+            }
+        }
+    }
 }

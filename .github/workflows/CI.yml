@@ -1,0 +1,53 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install tooling
+        uses: ok-nick/setup-aftman@v0
+        with:
+          trust-check: false
+
+      - name: Format Luau
+        run: stylua src tests plugin -c
+
+      - name: Lint Luau using Selene
+        run: |
+          selene generate-roblox-std
+          selene src tests plugin
+
+      - name: Install Typescript dependencies
+        uses: bahmutov/npm-install@v1.8.17
+
+      - name: Lint and format Typescript using ESLint
+        run: npm run eslint
+
+  # run-in-roblox is a hit or miss and fails often
+  # test:
+  #   runs-on: windows-latest
+  #   timeout-minutes: 10
+  #
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #
+  #     - name: Install Roblox Studio
+  #       uses: OrbitalOwen/roblox-win-installer-action@1.1
+  #       with:
+  #         cookie: ${{ secrets.ROBLOSECURITY }}
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #     - name: Install Tools
+  #       uses: Roblox/setup-foreman@v1
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #     - name: Build place file
+  #       run: rojo build --output tests/test-place.rbxlx tests/default.project.json
+  #
+  #     - name: Run tests
+  #       run: run-in-roblox --place tests/test-place.rbxlx --script tests/test.server.lua

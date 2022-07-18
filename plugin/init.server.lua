@@ -12,10 +12,13 @@ local ChangeHistoryService = game:GetService('ChangeHistoryService')
 local Selection = game:GetService('Selection')
 
 local LayoutUtil = require(script.LayoutUtil)
-local Assets = require(script.Assets)
 
 local toolbar = plugin:CreateToolbar('LayoutUtil')
-local applyLayout = toolbar:CreateButton('Apply', 'Applies LayoutUtil to the given UILayout', Assets['icon-32'])
+local applyLayout = toolbar:CreateButton(
+	'Apply',
+	'Applies LayoutUtil to the given UIGridLayout or UIListLayout',
+	'rbxassetid://6457485620'
+)
 applyLayout.ClickableWhenViewportHidden = true
 
 applyLayout.Click:Connect(function()
