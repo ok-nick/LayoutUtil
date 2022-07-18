@@ -11,16 +11,14 @@ jobs:
       - name: Install Typescript dependencies
         uses: bahmutov/npm-install@v1.8.17
 
-      - name: Install aftman
-        run: |
-          git clone https://github.com/LPGhatguy/aftman.git
-          cd aftman
-          git switch tags/v0.2.5
-
       - name: Install tooling
         run: |
-          aftman self-install 
-          aftman install --no-trust-check
+           gh release download --repo LPGhatguy/aftman --pattern *linux*
+           unzip aftman*.zip
+           aftman self-install 
+           aftman install --no-trust-check
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Format Luau
         run: stylua src tests plugin -c
