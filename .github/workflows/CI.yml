@@ -15,7 +15,7 @@ jobs:
         run: |
            gh release download --repo LPGhatguy/aftman --pattern *linux*
            unzip aftman*.zip
-           aftman self-install 
+           ./aftman self-install 
            aftman install --no-trust-check
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
