@@ -8,15 +8,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install Typescript dependencies
-        uses: bahmutov/npm-install@v1.8.17
-
       - name: Install tooling
         run: |
            gh release download --repo LPGhatguy/aftman --pattern *linux*
            unzip aftman*.zip
            ./aftman self-install 
-           aftman install --no-trust-check
+           ./aftman install --no-trust-check
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -27,6 +24,9 @@ jobs:
         run: |
           selene generate-roblox-std
           selene src tests plugin
+
+      - name: Install Typescript dependencies
+        uses: bahmutov/npm-install@v1.8.17
 
       - name: Lint and format Typescript using ESLint
         run: npm run eslint
