@@ -1,22 +1,18 @@
 {
-	"name": "LayoutUtil-tests-ci",
-	"tree": {
-		"$className": "DataModel",
-
-		"ReplicatedStorage": {
-			"$className": "ReplicatedStorage",
-
-			"LayoutUtil": {
-				"$path": "../src"
-			},
-
-			"tests": {
-				"$path": "../test/tests"
-			},
-
-			"TestEz": {
-				"$path": "../test/TestEz"
-			}
-		}
-	}
+    "name": "LayoutUtil-tests-ci",
+    "tree": {
+        "$className": "DataModel",
+        "ReplicatedStorage": {
+            "$className": "ReplicatedStorage",
+            "LayoutUtil": {
+                "$path": "../src"
+            },
+            "DevPackages": {
+                "$path": "../DevPackages"
+            },
+            "tests": {
+                "$path": "../test/tests"
+            }
+        }
+    }
 }

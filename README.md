@@ -5,7 +5,7 @@
 [![Latest Release](https://img.shields.io/github/v/release/ok-nick/LayoutUtil?include_prereleases)](https://github.com/ok-nick/LayoutUtil/releases/latest)
 [![Discord](https://img.shields.io/discord/834969350061424660)](https://discord.gg/w9Bc6xH7uC)
 
-`LayoutUtil` is a library for dynamically sized `ScrollingFrames` with dynamically sized elements, without stretching.
+`LayoutUtil` is a Luau library for dynamically sized `ScrollingFrames` with dynamically sized elements, without stretching.
 
 ## Installation
 
@@ -78,7 +78,7 @@ Automatically resizes the `CanvasSize` property of a ScrollingFrame.\
 
 ## FAQ
 ### Why not use offset?
-Using offset for each element of the `ScrollingFrame` works, but it doesn't adjust to the user's resolution. On a small screen, the UI may look fine; however, on a large screen it may be too small.
+Using offset for each element of the `ScrollingFrame` works, but it doesn't adapt to the user's resolution. On a small screen, the UI may look fine; however, on a large screen it may be too small.
 
 ### Why not use scale?
 Scale will adapt each element's size to the user's resolution, but it will not prevent them from stretching.

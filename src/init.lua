@@ -22,12 +22,12 @@ local function absoluteSizeFromUDim2(childSize: UDim2, parentAbsoluteSize: Vecto
 end
 
 --[=[
-	Inserts and calculates the AspectRatio of a UIAspectRatioConstraint.
-	If a constraint already exists, it will overwrite the property.
+	Inserts and calculates the `AspectRatio` of a `UIAspectRatioConstraint`.
+	If a constraint already exists, it will overwrite the `AspectRatio` property.
 
 	@param {GuiObject} object The object to be handled.
-	@param {Vector2} absoluteSize AbsoluteSize of the object; defaults by manually retrieving the property. If the object isn't a
-		descendant of `game`, then the AbsoluteSize will be (0, 0), which is why this parameter is necessary.
+	@param {Vector2} absoluteSize `AbsoluteSize` of the object; defaults to manually retrieving the property. If the object isn't a
+		descendant of `game`, then the `AbsoluteSize` will be (0, 0), which is why this parameter is necessary.
 ]=]
 function LayoutUtil.constraint(object: GuiObject, absoluteSize: Vector2?)
 	absoluteSize = absoluteSize or object.AbsoluteSize
@@ -39,11 +39,11 @@ function LayoutUtil.constraint(object: GuiObject, absoluteSize: Vector2?)
 end
 
 --[=[
-	Uses the `constraint` function to insert a constraint into the UIGridLayout.
+	Uses the `constraint` function to insert a constraint into the `UIGridLayout`.
 
-	@param {UIGridLayout} layout The UIGridLayout to be constrained.
-	@param {Vector2} parentSize AbsoluteSize of the parent of the layout; defaults by manually retrieving the property. If the object isn't a
-		descendant of `game`, then the AbsoluteSize will be (0, 0), which is why this parameter is necessary.
+	@param {UIGridLayout} layout The `UIGridLayout` to be constrained.
+	@param {Vector2} parentSize `AbsoluteSize` of the parent of the layout; defaults to manually retrieving the property. If the object isn't a
+		descendant of `game`, then the `AbsoluteSize` will be (0, 0), which is why this parameter is necessary.
 
 ]=]
 function LayoutUtil.grid(layout: UIGridLayout, parentSize: Vector2)
@@ -58,11 +58,11 @@ function LayoutUtil.grid(layout: UIGridLayout, parentSize: Vector2)
 end
 
 --[=[
-	Uses the `constraint` function to insert a constraint into each child of the parenting ScrollingFrame.
+	Uses the `constraint` function to insert a constraint into each child of the parenting `ScrollingFrame`.
 
-	@param {UIGridLayout} layout The UIListLayout to be constrained.
-	@param {Vector2} parentSize AbsoluteSize of the parent of the layout; defaults by manually retrieving the property. If the object isn't a
-		descendant of `game`, then the AbsoluteSize will be (0, 0), which is why this parameter is necessary.
+	@param {UIGridLayout} layout The `UIListLayout` to be constrained.
+	@param {Vector2} parentSize `AbsoluteSize` of the parent of the layout; defaults to manually retrieving the property. If the object isn't a
+		descendant of `game`, then the `AbsoluteSize` will be (0, 0), which is why this parameter is necessary.
 ]=]
 function LayoutUtil.list(layout: UIListLayout, parentSize: Vector2)
 	local parent = layout.Parent
@@ -78,10 +78,11 @@ function LayoutUtil.list(layout: UIListLayout, parentSize: Vector2)
 end
 
 --[=[
-	Watches a UIListLayout parented to a ScrollingFrame to automatically resize new children. This function is only available
-	for UIListLayouts since UIGridLayouts don't need any extra work.
+	Watches a `UIListLayout` parented to a `ScrollingFrame` to automatically resize new children. This function is only available
+	for `UIListLayouts` since `UIGridLayouts` do not need any extra work. The parent of the `UIListLayout` must be a valid
+	descendant of `game`.
 
-	@param {UIListLayout} layout The UIListLayout to be watched.
+	@param {UIListLayout} layout The `UIListLayout` to be watched.
 	@returns {RBXScriptConnection} The connection which automatically constraints new children as they are added.
 ]=]
 function LayoutUtil.watch(layout: UIListLayout): RBXScriptConnection
@@ -96,11 +97,11 @@ function LayoutUtil.watch(layout: UIListLayout): RBXScriptConnection
 end
 
 --[=[
-	Alternative to the `AutomaticCanvasSize` property, as it is not yet stable.
+	Alternative to the `AutomaticCanvasSize` property, as it is buggy.
 
-	@param {ScrollingFrame} scrollingFrame The ScrollingFrame to be automatically sized.
-	@param {UIListLayout | UIGridLayout} layout The layout within the ScrollingFrame.
-	@param {Enum.AutomaticSize} axis The axis of which to automatically scale the CanvasSize.
+	@param {ScrollingFrame} scrollingFrame The `ScrollingFrame` to be automatically sized.
+	@param {UIListLayout | UIGridLayout} layout The layout within the `ScrollingFrame`.
+	@param {Enum.AutomaticSize} axis The axis of which to automatically scale the `CanvasSize`.
 	@returns {RBXScriptConnection} The connection which automatically resizes the canvas when the content size changes.
 ]=]
 function LayoutUtil.resize(scrollingFrame: ScrollingFrame, layout: UIGridLayout | UIListLayout, axis: Enum.AutomaticSize): RBXScriptConnection

@@ -1,10 +1,12 @@
 [package]
-name = 'LayoutUtil'
-description = "LayoutUtil; manages aspect ratios of UILayouts."
-authors = ['ok-nick']
-license = 'MIT'
-version = '2.0.0'
+name = "ok-nick/layoututil"
+version = "3.0.0"
+description = "A library for dynamically sized `ScrollingFrames` with dynamically sized elements, without stretching."
+authors = ["ok-nick <nick.libraries@gmail.com>"]
+license = "MIT"
 realm = "shared"
+registry = "https://github.com/UpliftGames/wally-index"
+include = ["src", "default.project.json", "LICENSE", "README.md"]
 
 [dev-dependencies]
-testEZ = "roblox/testez@0.4.2"
+TestEZ = "roblox/testez@0.4.1"

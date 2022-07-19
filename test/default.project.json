@@ -6,6 +6,12 @@
             "$className": "ReplicatedStorage",
             "LayoutUtil": {
                 "$path": "../src"
+            },
+            "DevPackages": {
+                "$path": "../DevPackages"
+            },
+            "tests": {
+                "$path": "../test/tests"
             }
         },
         "ServerScriptService": {

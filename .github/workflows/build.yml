@@ -85,7 +85,7 @@ jobs:
 
     - name: Build files
       run: |
-        rojo build bin/library.project.json --output bin/LayoutUtil.rbxm
+        rojo build --output bin/LayoutUtil.rbxm
         rojo build bin/plugin.project.json --output bin/LayoutUtil-Plugin.rbxm
 
     # - name: Upload
