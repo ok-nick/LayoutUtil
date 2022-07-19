@@ -32,6 +32,9 @@ jobs:
           selene generate-roblox-std
           selene src plugin test bin
 
+      - name: Install Typescript dependencies
+        run: npm install
+
       - name: Lint and format Typescript
         run: npm run eslint
 
