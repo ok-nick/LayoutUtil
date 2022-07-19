@@ -4,3 +4,7 @@ description = "LayoutUtil; manages aspect ratios of UILayouts."
 authors = ['ok-nick']
 license = 'MIT'
 version = '2.0.0'
+realm = "shared"
+
+[dev-dependencies]
+testEZ = "roblox/testez@0.4.2"
