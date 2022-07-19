@@ -1,0 +1,51 @@
+name: deploy 
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install tooling
+      uses: ok-nick/setup-aftman@v0
+      with:
+        trust-check: false
+
+    - name: Build files
+      run: |
+        rojo build --output bin/LayoutUtil.rbxm
+        rojo build bin/plugin.project.json --output bin/LayoutUtil-Plugin.rbxm
+
+    # - name: Upload
+    #   run: |
+    #     rojo upload bin/library.project.json --asset_id 6723754061 --cookie ${{ secrets.ROBLOSECURITY }}
+    #     rojo upload bin/plugin.project.json --asset_id 6723751472 --cookie ${{ secrets.ROBLOSECURITY }}
+
+      # annoying how grep doesn't respect capture groups
+    - name: Get version
+      run: |
+        VERSION=`grep -Po "version = '\K\d\.\d\.\d(?=')" wally.toml`
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+    - name: Get description
+      run: |
+        DESCRIPTION=`grep -m 1 -Po '###\s(:?.|\s(?!##\s|\[Unreleased\]))+' CHANGELOG.md`
+        echo "$DESCRIPTION" >> $GITHUB_ENV
+
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: ${{ env.VERSION }}
+        tag_name: ${{ env.VERSION }}
+        body: ${{ env.DESCRIPTION }}
+        files: |
+          bin/LayoutUtil.rbxm
+          bin/LayoutUtil-Plugin.rbxm
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
