@@ -1,20 +1,24 @@
 <img align = 'right' width = '256' src = 'https://github.com/ok-nick/LayoutUtil/blob/master/assets/icon-256.png?raw=true'/>
 
-# LayoutUtil
-[![CI Status](https://img.shields.io/github/workflow/status/ok-nick/LayoutUtil/Build)](https://github.com/ok-nick/LayoutUtil/actions?query=workflow%3ABuild) [![Latest Release](https://img.shields.io/github/v/release/ok-nick/LayoutUtil?include_prereleases)](https://github.com/ok-nick/LayoutUtil/releases/latest) [![Discord](https://img.shields.io/discord/834969350061424660)](https://discord.gg/w9Bc6xH7uC)
+# `LayoutUtil`
+[![CI Status](https://img.shields.io/github/workflow/status/ok-nick/LayoutUtil/Build)](https://github.com/ok-nick/LayoutUtil/actions?query=workflow%3ABuild)
+[![Latest Release](https://img.shields.io/github/v/release/ok-nick/LayoutUtil?include_prereleases)](https://github.com/ok-nick/LayoutUtil/releases/latest)
+[![Discord](https://img.shields.io/discord/834969350061424660)](https://discord.gg/w9Bc6xH7uC)
 
-`LayoutUtil` is a library for dynamically sized `ScrollingFrame` with dynamically sized elements, without stretching.
+`LayoutUtil` is a library for dynamically sized `ScrollingFrames` with dynamically sized elements, without stretching.
 
 ## Installation
 
 ### Using Wally:
-```
+```toml
 [dependencies]
 LayoutUtil = "ok-nick/LayoutUtil@3.0.0"
 ```
 
 ### Using npm (via roblox-ts):
-`npm install @rbxts/LayoutUtil`
+```bash
+$ npm install @rbxts/LayoutUtil
+```
 
 ## Examples
 ### `UIListLayouts`
