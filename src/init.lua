@@ -6,11 +6,8 @@
 local LayoutUtil = {}
 
 local function validateParent(parent)
-	assert(typeof(parent) == 'Instance', 'Parent of layout is not a valid `Instance`')
-	assert(
-		parent:IsA('GuiBase2d'),
-		'Parent of layout is not a valid `GuiBase2d` (ScreenGui, Frame, TextLabel, etc...)'
-	)
+	assert(typeof(parent) == "Instance", "Parent of layout is not a valid `Instance`")
+	assert(parent:IsA("GuiBase2d"), "Parent of layout is not a valid `GuiBase2d` (ScreenGui, Frame, TextLabel, etc...)")
 end
 
 local function toOffset(childSize: UDim, parentAbsoluteSize: number): number
@@ -32,8 +29,8 @@ end
 function LayoutUtil.constraint(object: GuiObject, absoluteSize: Vector2?)
 	absoluteSize = absoluteSize or object.AbsoluteSize
 
-	local constraint = object:FindFirstChildOfClass('UIAspectRatioConstraint')
-		or Instance.new('UIAspectRatioConstraint')
+	local constraint = object:FindFirstChildOfClass("UIAspectRatioConstraint")
+		or Instance.new("UIAspectRatioConstraint")
 	constraint.AspectRatio = absoluteSize.X / absoluteSize.Y
 	constraint.Parent = object
 end
@@ -71,7 +68,7 @@ function LayoutUtil.list(layout: UIListLayout, parentSize: Vector2)
 	parentSize = parentSize or parent.AbsoluteSize
 
 	for _, child in ipairs(parent:GetChildren()) do
-		if child:IsA('GuiObject') then
+		if child:IsA("GuiObject") then
 			LayoutUtil.constraint(child, absoluteSizeFromUDim2(child.Size, parentSize))
 		end
 	end
@@ -90,7 +87,7 @@ function LayoutUtil.watch(layout: UIListLayout): RBXScriptConnection
 	validateParent(parent)
 
 	return parent.ChildAdded:Connect(function(child)
-		if child:IsA('GuiObject') then
+		if child:IsA("GuiObject") then
 			LayoutUtil.constraint(child)
 		end
 	end)
@@ -104,8 +101,12 @@ end
 	@param {Enum.AutomaticSize} axis The axis of which to automatically scale the `CanvasSize`.
 	@returns {RBXScriptConnection} The connection which automatically resizes the canvas when the content size changes.
 ]=]
-function LayoutUtil.resize(scrollingFrame: ScrollingFrame, layout: UIGridLayout | UIListLayout, axis: Enum.AutomaticSize): RBXScriptConnection
-	return layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
+function LayoutUtil.resize(
+	scrollingFrame: ScrollingFrame,
+	layout: UIGridLayout | UIListLayout,
+	axis: Enum.AutomaticSize
+): RBXScriptConnection
+	return layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 		local contentSize = layout.AbsoluteContentSize
 		local canvasSize
 		if axis == Enum.AutomaticSize.Y then
