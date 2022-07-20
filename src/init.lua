@@ -5,17 +5,22 @@
 
 local LayoutUtil = {}
 
-local function validateParent(parent)
-	assert(typeof(parent) == "Instance", "Parent of layout is not a valid `Instance`")
-	assert(parent:IsA("GuiBase2d"), "Parent of layout is not a valid `GuiBase2d` (ScreenGui, Frame, TextLabel, etc...)")
-end
-
 local function toOffset(childSize: UDim, parentAbsoluteSize: number): number
 	return (childSize.Scale * parentAbsoluteSize) + childSize.Offset
 end
 
 local function absoluteSizeFromUDim2(childSize: UDim2, parentAbsoluteSize: Vector2): Vector2
 	return Vector2.new(toOffset(childSize.X, parentAbsoluteSize.X), toOffset(childSize.Y, parentAbsoluteSize.Y))
+end
+
+local function getParent(layout: UIGridLayout | UIListLayout): GuiBase2d
+	assert(layout:IsDescendantOf(game), "layout must be a descendant of `game`")
+
+	local parent = layout.Parent
+	assert(parent, "parent of layout must be valid")
+	assert(parent:IsA("GuiBase2d"), "parent of layout must be of `GuiBase2d` (ex: ScreenGui, Frame, TextLabel, etc)")
+
+	return parent
 end
 
 --[=[
@@ -26,7 +31,7 @@ end
 	@param {Vector2} absoluteSize `AbsoluteSize` of the object; defaults to manually retrieving the property. If the object isn't a
 		descendant of `game`, then the `AbsoluteSize` will be (0, 0), which is why this parameter is necessary.
 ]=]
-function LayoutUtil.constraint(object: GuiObject, absoluteSize: Vector2?)
+function LayoutUtil.constrain(object: GuiObject, absoluteSize: Vector2?)
 	absoluteSize = absoluteSize or object.AbsoluteSize
 
 	local constraint = object:FindFirstChildOfClass("UIAspectRatioConstraint")
@@ -36,59 +41,47 @@ function LayoutUtil.constraint(object: GuiObject, absoluteSize: Vector2?)
 end
 
 --[=[
-	Uses the `constraint` function to insert a constraint into the `UIGridLayout`.
+	Uses the `constrain` function to insert a constraint into the `UIGridLayout`.
 
 	@param {UIGridLayout} layout The `UIGridLayout` to be constrained.
 	@param {Vector2} parentSize `AbsoluteSize` of the parent of the layout; defaults to manually retrieving the property. If the object isn't a
 		descendant of `game`, then the `AbsoluteSize` will be (0, 0), which is why this parameter is necessary.
-
 ]=]
 function LayoutUtil.grid(layout: UIGridLayout, parentSize: Vector2)
-	if not parentSize then
-		local parent = layout.Parent
-		validateParent(parent)
-
-		parentSize = parent.AbsoluteSize
-	end
-
-	LayoutUtil.constraint(layout, absoluteSizeFromUDim2(layout.CellSize, parentSize))
+	parentSize = parentSize or getParent(layout).AbsoluteSize
+	LayoutUtil.constrain(layout, absoluteSizeFromUDim2(layout.CellSize, parentSize))
 end
 
 --[=[
-	Uses the `constraint` function to insert a constraint into each child of the parenting `ScrollingFrame`.
+	Uses the `constrain` function to insert a constraint into each child of the parenting `ScrollingFrame`.
 
 	@param {UIGridLayout} layout The `UIListLayout` to be constrained.
 	@param {Vector2} parentSize `AbsoluteSize` of the parent of the layout; defaults to manually retrieving the property. If the object isn't a
 		descendant of `game`, then the `AbsoluteSize` will be (0, 0), which is why this parameter is necessary.
 ]=]
 function LayoutUtil.list(layout: UIListLayout, parentSize: Vector2)
-	local parent = layout.Parent
-	validateParent(parent)
-
+	local parent = getParent(layout)
 	parentSize = parentSize or parent.AbsoluteSize
 
 	for _, child in ipairs(parent:GetChildren()) do
 		if child:IsA("GuiObject") then
-			LayoutUtil.constraint(child, absoluteSizeFromUDim2(child.Size, parentSize))
+			LayoutUtil.constrain(child, absoluteSizeFromUDim2(child.Size, parentSize))
 		end
 	end
 end
 
 --[=[
-	Watches a `UIListLayout` parented to a `ScrollingFrame` to automatically resize new children. This function is only available
-	for `UIListLayouts` since `UIGridLayouts` do not need any extra work. The parent of the `UIListLayout` must be a valid
-	descendant of `game`.
+	Watches a `UIListLayout` to automatically resize new children. This function is only available for `UIListLayouts` since `UIGridLayouts` do not
+	need any runtime work.
 
 	@param {UIListLayout} layout The `UIListLayout` to be watched.
-	@returns {RBXScriptConnection} The connection which automatically constraints new children as they are added.
+	@returns {RBXScriptConnection} The connection which automatically constrains new children as they are added.
 ]=]
 function LayoutUtil.watch(layout: UIListLayout): RBXScriptConnection
-	local parent = layout.Parent
-	validateParent(parent)
-
+	local parent = getParent(layout)
 	return parent.ChildAdded:Connect(function(child)
 		if child:IsA("GuiObject") then
-			LayoutUtil.constraint(child)
+			LayoutUtil.constrain(child)
 		end
 	end)
 end
