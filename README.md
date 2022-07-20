@@ -7,6 +7,9 @@
 
 `LayoutUtil` is a Luau library for dynamically sized `ScrollingFrames` with dynamically sized elements, without stretching.
 
+## Comparison
+[![Comparison](assets/comparison.gif)](assets/comparison.rbxl)
+
 ## Installation
 
 ### Using Wally:
