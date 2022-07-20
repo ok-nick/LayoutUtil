@@ -9,6 +9,7 @@
 
 ## Comparison
 [![Comparison](assets/comparison.gif)](assets/comparison.rbxl)
+Resizing the window is to simulate different screen resolutions.
 
 ## Installation
 
