@@ -44,9 +44,9 @@ LayoutUtil.resize(scrollingFrame)
 You may prefer using the `AutomaticCanvasSize` property, but it is known to have bugs, [read here](#LayoutUtilresize).
 
 ## Documentation
-### `LayoutUtil.constraint`
+### `LayoutUtil.constrain`
 ```lua
-LayoutUtil.constraint(object: GuiObject, absoluteSize: Vector2?)
+LayoutUtil.constrain(object: GuiObject, absoluteSize: Vector2?)
 ```
 Calculates and inserts a `UIAspectRatioConstraint` into the specified `object`. This function will reuse `UIAspectRatioConstraints` if one exists as a child.\
 If the object (or its ancestor) hasn't been parented, by default Roblox assigns the `AbsoluteSize` property to (0, 0). If this is the case, be sure to specify the `absoluteSize` parameter explicitly.
