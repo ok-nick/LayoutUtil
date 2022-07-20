@@ -88,3 +88,6 @@ Scale will adapt each element's size to the user's resolution, but it will not p
 
 ### Why not use a `UIAspectRatioConstraint`?
 `LayoutUtil` uses `UIAspectRatioConstraints` internally! For a `UIGridLayout`, it will calculate and insert one as its child, and for a `UIListLayout`, it will calculate and insert one for each element, as necessary. 
+
+### What is the `LayoutUtil` plugin?
+The `LayoutUtil` plugin calculates and inserts `UIAspectRatioConstraints` into nearby `UILayouts`. While it doesn't substitute the library, it does cover cases where you either have a `UIGridLayout` or a static `UIListLayout` (meaning no children are added at runtime).
