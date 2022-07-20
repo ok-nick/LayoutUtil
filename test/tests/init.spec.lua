@@ -3,7 +3,7 @@ return function()
 
 	it("should insert a UIAspectRatioConstraint and calculate the AspectRatio", function()
 		local object = Instance.new("Frame")
-		LayoutUtil.constraint(object, Vector2.new(100, 50))
+		LayoutUtil.constrain(object, Vector2.new(100, 50))
 
 		expect(object.UIAspectRatioConstraint.AspectRatio).to.equal(2)
 	end)

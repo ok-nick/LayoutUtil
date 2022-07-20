@@ -14,8 +14,6 @@ local function absoluteSizeFromUDim2(childSize: UDim2, parentAbsoluteSize: Vecto
 end
 
 local function getParent(layout: UIGridLayout | UIListLayout): GuiBase2d
-	assert(layout:IsDescendantOf(game), "layout must be a descendant of `game`")
-
 	local parent = layout.Parent
 	assert(parent, "parent of layout must be valid")
 	assert(parent:IsA("GuiBase2d"), "parent of layout must be of `GuiBase2d` (ex: ScreenGui, Frame, TextLabel, etc)")
