@@ -1,5 +1,5 @@
 --[[
-	LayoutUtil-Plugin v3.0.0
+	LayoutUtil-Plugin v3.0.0-rc.1
 	https://github.com/ok-nick/LayoutUtil
 ]]
 

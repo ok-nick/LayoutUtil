@@ -1,6 +1,6 @@
 [package]
 name = "ok-nick/layoututil"
-version = "3.0.0"
+version = "3.0.0-rc.1"
 description = "A library for dynamically sized `ScrollingFrames` with dynamically sized elements, without stretching."
 authors = ["ok-nick <nick.libraries@gmail.com>"]
 license = "MIT"

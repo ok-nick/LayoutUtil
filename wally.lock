@@ -4,7 +4,7 @@ registry = "test"
 
 [[package]]
 name = "ok-nick/layoututil"
-version = "3.0.0"
+version = "3.0.0-rc.1"
 dependencies = []
 
 [[package]]

@@ -22,6 +22,7 @@ jobs:
         rojo build --output bin/LayoutUtil.rbxm
         rojo build bin/plugin.project.json --output bin/LayoutUtil-Plugin.rbxm
 
+    # TODO: upload to wally and npm
     # - name: Upload
     #   run: |
     #     rojo upload bin/library.project.json --asset_id 6723754061 --cookie ${{ secrets.ROBLOSECURITY }}

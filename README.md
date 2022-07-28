@@ -16,7 +16,7 @@ Resizing the window is to simulate different screen resolutions.
 ### Using Wally:
 ```toml
 [dependencies]
-LayoutUtil = "ok-nick/LayoutUtil@3.0.0"
+LayoutUtil = "ok-nick/LayoutUtil@3.0.0-rc.1"
 ```
 
 ### Using npm (via roblox-ts):
