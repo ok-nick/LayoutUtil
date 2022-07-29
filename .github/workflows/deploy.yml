@@ -28,15 +28,25 @@ jobs:
     #     rojo upload bin/library.project.json --asset_id 6723754061 --cookie ${{ secrets.ROBLOSECURITY }}
     #     rojo upload bin/plugin.project.json --asset_id 6723751472 --cookie ${{ secrets.ROBLOSECURITY }}
 
-      # annoying how grep doesn't respect capture groups
+    - name: Download ripgrep
+      run: gh release download --repo BurntSushi/ripgrep --pattern *x86_64-unknown-linux-musl.tar.gz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+    - name: Install ripgrep
+      run: |
+        mkdir ripgrep
+        tar -xvzf ripgrep*.tar.gz -C ripgrep --strip-components=1
+        echo "$GITHUB_WORKSPACE/ripgrep" >> $GITHUB_PATH
+
     - name: Get version
       run: |
-        VERSION=`grep -Po "version = \"\K.+(?=\")" wally.toml`
+        VERSION=`rg 'version = "([^"]+)' wally.toml --replace '$1' --only-matching`
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Get description
       run: |
-        DESCRIPTION=`grep -m 1 -Po "###\s(.|\s(?!##\s|\[Unreleased\]))+" CHANGELOG.md`
+        DESCRIPTION=`rg '###\s(.(?!##\s|\[Unreleased\]))+' CHANGELOG.md --pcre2 --multiline --multiline-dotall --max-count 1 CHANGELOG.md`
         echo "DESCRIPTION=$DESCRIPTION" >> $GITHUB_ENV
 
     - name: Release
