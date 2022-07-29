@@ -6,7 +6,15 @@ authors = ["ok-nick <nick.libraries@gmail.com>"]
 license = "MIT"
 realm = "shared"
 registry = "https://github.com/UpliftGames/wally-index"
-include = ["src", "default.project.json", "LICENSE", "README.md"]
+include = [
+  "src",
+  "default.project.json",
+  "LICENSE",
+  "README.md",
+  "wally.toml",
+  "wally.lock",
+]
+exclude = ["**"]
 
 [dev-dependencies]
 TestEZ = "roblox/testez@0.4.1"
