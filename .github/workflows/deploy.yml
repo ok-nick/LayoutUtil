@@ -36,7 +36,7 @@ jobs:
 
     - name: Get description
       run: |
-        DESCRIPTION=`grep -m 1 -Po '###\s(:?.|\s(?!##\s|\[Unreleased\]))+' CHANGELOG.md`
+        DESCRIPTION=`grep -m 1 -Po "###\s(.|\s(?!##\s|\[Unreleased\]))+" CHANGELOG.md`
         echo "$DESCRIPTION" >> $GITHUB_ENV
 
     - name: Release
