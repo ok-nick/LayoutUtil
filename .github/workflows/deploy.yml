@@ -47,7 +47,7 @@ jobs:
     - name: Get description
       run: |
         DESCRIPTION=`rg '###\s(.(?!##\s|\[Unreleased\]))+' CHANGELOG.md --pcre2 --multiline --multiline-dotall --max-count 1 CHANGELOG.md`
-        echo "DESCRIPTION=$DESCRIPTION<<EOF" >> $GITHUB_ENV
+        echo "DESCRIPTION=<<EOF $DESCRIPTION EOF" >> $GITHUB_ENV
 
     - name: Release
       uses: softprops/action-gh-release@v1
