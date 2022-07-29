@@ -31,7 +31,7 @@ jobs:
       # annoying how grep doesn't respect capture groups
     - name: Get version
       run: |
-        VERSION=`grep -Po "version = '\K\d\.\d\.\d(?=')" wally.toml`
+        VERSION=`grep -Po "version = "\K.+(?=")" wally.toml`
         echo "VERSION=$VERSION" >> $GITHUB_ENV
 
     - name: Get description
