@@ -16,12 +16,12 @@ Resizing the window is to simulate different screen resolutions.
 ### Using Wally:
 ```toml
 [dependencies]
-LayoutUtil = "ok-nick/LayoutUtil@3.0.0-rc.1"
+LayoutUtil = "ok-nick/layoututil@3.0.0-rc.1"
 ```
 
 ### Using npm (via roblox-ts):
 ```bash
-$ npm install @rbxts/LayoutUtil
+$ npm install @rbxts/layoututil
 ```
 
 ## Examples
